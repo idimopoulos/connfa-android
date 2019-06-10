@@ -39,7 +39,7 @@
 
             <intent-filter>
                 <data
-                    android:host="connfa-integration.uat.link"
+                    android:host="data.gnest.org"
                     android:scheme="https" />
 
                 <action android:name="android.intent.action.VIEW" />
