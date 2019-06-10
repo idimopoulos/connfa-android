@@ -29,6 +29,12 @@ android {
 
     productFlavors {
 
+        cest2019 {
+            applicationId "org.gnest.cest2019"
+            versionCode 1
+            versionName "1.0.0"
+        }
+
         connfa {
             applicationId "com.ls.connfa"
             versionCode 1
