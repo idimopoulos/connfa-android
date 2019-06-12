@@ -61,8 +61,8 @@
         <enum name="serif" value="2" />
         <enum name="monospace" value="3" />
     </attr>
-    <attr name="iconTint" format="reference"/>
-    <attr name="iconTintMode" format="enum">
+    <attr name="iconTintColor" format="reference"/>
+    <attr name="iconTintColorMode" format="enum">
         <enum name="SRC_OVER" value="3" />
         <enum name="SRC_IN" value="5" />
         <enum name="SRC_ATOP" value="9" />
@@ -98,8 +98,8 @@
         <attr name="secondaryTextStyle"/>
         <attr name="primaryTextTypeface"/>
         <attr name="secondaryTextTypeface"/>
-        <attr name="iconTint"/>
-        <attr name="iconTintMode"/>
+        <attr name="iconTintColor"/>
+        <attr name="iconTintColorMode"/>
         <attr name="iconColourFilter"/>
     </declare-styleable>
 

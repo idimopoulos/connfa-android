@@ -8,7 +8,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'io.fabric.tools:gradle:1.27.1'
+        classpath 'io.fabric.tools:gradle:1.29.0'
     }
 }
 
@@ -68,25 +68,25 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':ParallaxScroll')
-    compile project(':drupalSDK')
-    compile('com.crashlytics.sdk.android:crashlytics:2.6.1@aar') {
-        transitive = true;
+    api fileTree(dir: 'libs', include: ['*.jar'])
+    api project(':ParallaxScroll')
+    api project(':drupalSDK')
+    api('com.crashlytics.sdk.android:crashlytics:2.10.1@aar') {
+        transitive = true
     }
-    compile 'com.github.dmytrodanylyk.shadow-layout:library:1.0.2'
-    compile "com.android.support:appcompat-v7:$project.ANDROID_SUPPORT_LIBRARY_VERSION"
-    compile "com.android.support:appcompat-v7:$project.ANDROID_SUPPORT_LIBRARY_VERSION"
-    compile "com.android.support:support-v4:$project.ANDROID_SUPPORT_LIBRARY_VERSION"
-    compile "com.android.support:design:$project.ANDROID_SUPPORT_LIBRARY_VERSION"
-    compile 'com.google.android.gms:play-services-analytics:9.0.0'
-    compile 'com.google.android.gms:play-services-maps:9.0.0'
-    compile 'com.google.code.gson:gson:2.2.4'
-    compile 'org.jetbrains:annotations:13.0'
-    compile 'com.jpardogo.materialtabstrip:library:1.0.8'
-    compile('com.twitter.sdk.android:twitter:1.13.1@aar') {
-        transitive = true;
+    api 'com.github.dmytrodanylyk.shadow-layout:library:1.0.3'
+    api "com.android.support:appcompat-v7:$project.ANDROID_SUPPORT_LIBRARY_VERSION"
+    api "com.android.support:appcompat-v7:$project.ANDROID_SUPPORT_LIBRARY_VERSION"
+    api "com.android.support:support-v4:$project.ANDROID_SUPPORT_LIBRARY_VERSION"
+    api "com.android.support:design:$project.ANDROID_SUPPORT_LIBRARY_VERSION"
+    api 'com.google.android.gms:play-services-analytics:16.0.8'
+    api 'com.google.android.gms:play-services-maps:9.0.0'
+    api 'com.google.code.gson:gson:2.8.5'
+    api 'org.jetbrains:annotations:17.0.0'
+    api 'com.jpardogo.materialtabstrip:library:1.1.1'
+    api('com.twitter.sdk.android:twitter:1.13.1@aar') {
+        transitive = true
     }
-    compile 'com.android.support:multidex:1.0.1'
+    api 'com.android.support:multidex:1.0.3'
 
 }

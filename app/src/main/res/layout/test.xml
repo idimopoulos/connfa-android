@@ -13,7 +13,7 @@
         android:id="@+id/holderHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/common_action_bar_splitter"
+        android:background="#d2d2d2"
         android:gravity="center"
         android:paddingBottom="@dimen/padding_small"
         android:paddingTop="@dimen/padding_small"
