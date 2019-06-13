@@ -31,7 +31,7 @@ public class ParallaxListViewHelper implements OnScrollListener {
 		this.listView = listView;
 		TypedArray typeArray = context.obtainStyledAttributes(attrs, R.styleable.ParallaxScroll);
 		this.parallaxFactor = typeArray.getFloat(R.styleable.ParallaxScroll_parallax_factor, DEFAULT_PARALLAX_FACTOR);
-		this.alphaFactor = typeArray.getFloat(R.styleable.ParallaxScroll_alpha_factor, DEFAULT_ALPHA_FACTOR);
+		this.alphaFactor = typeArray.getFloat(R.styleable.ParallaxScroll_alpha_factor2, DEFAULT_ALPHA_FACTOR);
 		this.isCircular = typeArray.getBoolean(R.styleable.ParallaxScroll_circular_parallax, DEFAULT_IS_CIRCULAR);
 		typeArray.recycle();
 	}

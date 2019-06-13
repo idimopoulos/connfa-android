@@ -40,7 +40,7 @@ public class ParallaxScrollView extends ScrollView {
 	protected void init(Context context, AttributeSet attrs) {
 		TypedArray typeArray = context.obtainStyledAttributes(attrs, R.styleable.ParallaxScroll);
 		this.parallaxFactor = typeArray.getFloat(R.styleable.ParallaxScroll_parallax_factor, DEFAULT_PARALLAX_FACTOR);
-		this.alphaFactor = typeArray.getFloat(R.styleable.ParallaxScroll_alpha_factor, DEFAULT_ALPHA_FACTOR);
+		this.alphaFactor = typeArray.getFloat(R.styleable.ParallaxScroll_alpha_factor2, DEFAULT_ALPHA_FACTOR);
 		this.innerParallaxFactor = typeArray.getFloat(R.styleable.ParallaxScroll_inner_parallax_factor, DEFAULT_INNER_PARALLAX_FACTOR);
 		this.numOfParallaxViews = typeArray.getInt(R.styleable.ParallaxScroll_parallax_views_num, DEFAULT_PARALLAX_VIEWS);
 		typeArray.recycle();
