@@ -5,7 +5,6 @@ import com.ls.drupalcon.model.Model;
 import com.ls.drupalcon.model.UpdateRequest;
 import com.ls.drupalcon.model.managers.BofsManager;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BofsStrategy implements EventHolderFragmentStrategy {

@@ -5,6 +5,7 @@ import com.ls.drupalcon.model.Model;
 import com.ls.drupalcon.model.UpdateRequest;
 import com.ls.drupalcon.model.data.Event;
 import com.ls.drupalcon.model.managers.SharedScheduleManager;
+
 import java.util.ArrayList;
 import java.util.List;
 

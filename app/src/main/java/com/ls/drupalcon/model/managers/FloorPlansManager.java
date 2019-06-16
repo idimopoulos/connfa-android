@@ -1,26 +1,18 @@
 package com.ls.drupalcon.model.managers;
 
+import android.graphics.Bitmap;
+
 import com.ls.drupal.AbstractBaseDrupalEntity;
-import com.ls.drupal.AbstractDrupalByteEntity;
 import com.ls.drupal.DrupalByteEntity;
 import com.ls.drupal.DrupalClient;
-import com.ls.drupal.DrupalImageEntity;
 import com.ls.drupalcon.app.App;
 import com.ls.drupalcon.model.dao.FloorPlanDao;
-import com.ls.drupalcon.model.dao.LocationDao;
 import com.ls.drupalcon.model.data.FloorPlan;
-import com.ls.drupalcon.model.data.Location;
 import com.ls.drupalcon.model.requests.FloorPlansRequest;
-import com.ls.drupalcon.model.requests.LocationRequest;
 import com.ls.http.base.BaseRequest;
 import com.ls.http.base.ResponseData;
 import com.ls.util.L;
 import com.ls.utils.FileUtils;
-
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
 
 import java.util.Collections;
 import java.util.List;

@@ -2,9 +2,7 @@ package com.ls.ui.adapter.item;
 
 import com.ls.drupalcon.model.data.Event;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class TimeRangeItem extends EventListItem {
 

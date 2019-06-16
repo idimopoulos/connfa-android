@@ -1,10 +1,5 @@
 package com.ls.drupalcon.model.data;
 
-import com.ls.drupalcon.R;
-import com.ls.drupalcon.app.App;
-import com.ls.http.base.BaseRequest;
-import com.ls.http.base.RequestConfig;
-
 import java.util.ArrayList;
 
 public class Data {

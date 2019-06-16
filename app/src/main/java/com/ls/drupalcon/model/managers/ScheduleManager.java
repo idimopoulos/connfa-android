@@ -3,10 +3,9 @@ package com.ls.drupalcon.model.managers;
 import com.ls.drupal.AbstractBaseDrupalEntity;
 import com.ls.drupal.DrupalClient;
 import com.ls.drupalcon.model.Model;
-import com.ls.drupalcon.model.data.SharedEvents;
 import com.ls.drupalcon.model.data.Schedule;
+import com.ls.drupalcon.model.data.SharedEvents;
 import com.ls.drupalcon.model.requests.ScheduleRequest;
-import com.ls.utils.L;
 
 import java.util.ArrayList;
 import java.util.List;

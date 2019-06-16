@@ -1,5 +1,10 @@
 package com.ls.drupalcon.model;
 
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.os.Environment;
+
 import com.android.volley.Network;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.BasicNetwork;
@@ -16,26 +21,21 @@ import com.ls.drupalcon.model.http.hurl.RedirectHurlStack;
 import com.ls.drupalcon.model.managers.BofsManager;
 import com.ls.drupalcon.model.managers.EventManager;
 import com.ls.drupalcon.model.managers.FloorPlansManager;
-import com.ls.drupalcon.model.managers.ScheduleManager;
-import com.ls.drupalcon.model.managers.SharedScheduleManager;
 import com.ls.drupalcon.model.managers.InfoManager;
 import com.ls.drupalcon.model.managers.LevelsManager;
 import com.ls.drupalcon.model.managers.LocationManager;
 import com.ls.drupalcon.model.managers.LoginManager;
 import com.ls.drupalcon.model.managers.PoisManager;
 import com.ls.drupalcon.model.managers.ProgramManager;
+import com.ls.drupalcon.model.managers.ScheduleManager;
 import com.ls.drupalcon.model.managers.SettingsManager;
+import com.ls.drupalcon.model.managers.SharedScheduleManager;
 import com.ls.drupalcon.model.managers.SocialManager;
 import com.ls.drupalcon.model.managers.SpeakerManager;
 import com.ls.drupalcon.model.managers.TracksManager;
 import com.ls.drupalcon.model.managers.TypesManager;
 import com.ls.http.base.BaseRequest;
 import com.ls.http.base.ResponseData;
-
-import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.os.Environment;
 
 import java.io.File;
 import java.net.CookieHandler;

@@ -4,10 +4,7 @@ package com.ls.ui.view;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.text.style.LineHeightSpan;
 import android.text.style.ReplacementSpan;
-
-import com.ls.utils.L;
 
 public class RoundedBackgroundSpan extends ReplacementSpan {
 

@@ -1,14 +1,18 @@
 package com.ls.drupalcon.model;
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.database.sqlite.SQLiteDatabase;
+
 import com.ls.drupalcon.R;
 import com.ls.drupalcon.app.App;
 import com.ls.drupalcon.model.dao.EventDao;
 import com.ls.drupalcon.model.dao.FloorPlanDao;
-import com.ls.drupalcon.model.dao.SharedEventsDao;
 import com.ls.drupalcon.model.dao.InfoDao;
 import com.ls.drupalcon.model.dao.LevelDao;
 import com.ls.drupalcon.model.dao.LocationDao;
 import com.ls.drupalcon.model.dao.POIDao;
+import com.ls.drupalcon.model.dao.SharedEventsDao;
 import com.ls.drupalcon.model.dao.SharedScheduleDao;
 import com.ls.drupalcon.model.dao.SpeakerDao;
 import com.ls.drupalcon.model.dao.TrackDao;
@@ -16,10 +20,6 @@ import com.ls.drupalcon.model.dao.TypeDao;
 import com.ls.drupalcon.model.database.DBInfo;
 import com.ls.drupalcon.model.database.IMigrationTask;
 import com.ls.utils.FileUtils;
-
-import android.content.Context;
-import android.content.res.Resources;
-import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

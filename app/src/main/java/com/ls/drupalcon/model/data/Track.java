@@ -1,12 +1,11 @@
 package com.ls.drupalcon.model.data;
 
-import com.google.gson.annotations.SerializedName;
-
-import com.ls.drupalcon.model.database.AbstractEntity;
-import com.ls.utils.CursorParser;
-
 import android.content.ContentValues;
 import android.database.Cursor;
+
+import com.google.gson.annotations.SerializedName;
+import com.ls.drupalcon.model.database.AbstractEntity;
+import com.ls.utils.CursorParser;
 
 import java.util.ArrayList;
 import java.util.List;

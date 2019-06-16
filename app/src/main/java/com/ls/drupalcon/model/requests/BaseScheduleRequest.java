@@ -2,8 +2,6 @@ package com.ls.drupalcon.model.requests;
 
 import com.ls.drupal.AbstractDrupalEntityContainer;
 import com.ls.drupal.DrupalClient;
-import com.ls.drupalcon.model.PreferencesManager;
-import com.ls.drupalcon.model.UpdatesManager;
 import com.ls.http.base.BaseRequest;
 import com.ls.http.base.ResponseData;
 

@@ -1,5 +1,15 @@
 package com.ls.ui.activity;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+
 import com.ls.drupalcon.R;
 import com.ls.drupalcon.model.Model;
 import com.ls.drupalcon.model.PreferencesManager;
@@ -10,16 +20,6 @@ import com.ls.drupalcon.model.managers.ToastManager;
 import com.ls.ui.dialog.NoConnectionDialog;
 import com.ls.util.L;
 import com.ls.utils.NetworkUtils;
-
-import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.os.Handler;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 
 public class SplashActivity extends AppCompatActivity {
 

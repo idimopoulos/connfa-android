@@ -1,7 +1,5 @@
 package com.ls.drupalcon.model;
 
-import com.ls.util.L;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;

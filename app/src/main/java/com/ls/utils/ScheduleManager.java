@@ -1,14 +1,12 @@
 package com.ls.utils;
 
-import com.ls.drupalcon.model.data.EventDetailsEvent;
-import com.ls.receiver.NotifyReceiver;
-
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
-import java.util.Calendar;
+import com.ls.drupalcon.model.data.EventDetailsEvent;
+import com.ls.receiver.NotifyReceiver;
 
 public class ScheduleManager {
     private Context mContext;

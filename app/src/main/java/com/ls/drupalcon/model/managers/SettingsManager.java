@@ -5,7 +5,6 @@ import com.ls.drupal.DrupalClient;
 import com.ls.drupalcon.model.PreferencesManager;
 import com.ls.drupalcon.model.data.SettingsHolder;
 import com.ls.drupalcon.model.requests.SettingsRequest;
-import com.ls.util.L;
 import com.ls.utils.DateUtils;
 
 public class SettingsManager extends SynchronousItemManager<SettingsHolder, Object, String> {

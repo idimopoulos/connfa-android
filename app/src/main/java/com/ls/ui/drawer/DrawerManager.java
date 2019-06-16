@@ -10,6 +10,7 @@ import com.ls.ui.fragment.FloorPlanFragment;
 import com.ls.ui.fragment.LocationFragment;
 import com.ls.ui.fragment.SocialMediaFragment;
 import com.ls.ui.fragment.SpeakersListFragment;
+
 import org.jetbrains.annotations.NotNull;
 
 public class DrawerManager {

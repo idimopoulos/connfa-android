@@ -1,22 +1,5 @@
 package com.ls.ui.activity;
 
-import com.ls.drupalcon.R;
-import com.ls.drupalcon.app.App;
-import com.ls.drupalcon.model.Model;
-import com.ls.drupalcon.model.UpdateRequest;
-import com.ls.drupalcon.model.UpdatesManager;
-import com.ls.drupalcon.model.dao.EventDao;
-import com.ls.drupalcon.model.data.Level;
-import com.ls.drupalcon.model.data.Speaker;
-import com.ls.drupalcon.model.data.SpeakerDetailsEvent;
-import com.ls.drupalcon.model.managers.SpeakerManager;
-import com.ls.ui.view.CircleImageView;
-import com.ls.ui.view.NotifyingScrollView;
-import com.ls.utils.AnalyticsManager;
-import com.ls.utils.DateUtils;
-import com.ls.utils.L;
-import com.ls.utils.WebviewUtils;
-
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
@@ -35,6 +18,21 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.ls.drupalcon.R;
+import com.ls.drupalcon.model.Model;
+import com.ls.drupalcon.model.UpdateRequest;
+import com.ls.drupalcon.model.UpdatesManager;
+import com.ls.drupalcon.model.dao.EventDao;
+import com.ls.drupalcon.model.data.Level;
+import com.ls.drupalcon.model.data.Speaker;
+import com.ls.drupalcon.model.data.SpeakerDetailsEvent;
+import com.ls.drupalcon.model.managers.SpeakerManager;
+import com.ls.ui.view.CircleImageView;
+import com.ls.ui.view.NotifyingScrollView;
+import com.ls.utils.AnalyticsManager;
+import com.ls.utils.DateUtils;
+import com.ls.utils.WebviewUtils;
 
 import java.util.List;
 

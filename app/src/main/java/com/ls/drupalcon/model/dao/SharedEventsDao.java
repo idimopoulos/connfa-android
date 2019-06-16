@@ -4,8 +4,6 @@ import com.ls.drupalcon.model.AppDatabaseInfo;
 import com.ls.drupalcon.model.data.SharedEvents;
 import com.ls.drupalcon.model.database.AbstractEntityDAO;
 
-import java.util.List;
-
 
 public class SharedEventsDao extends AbstractEntityDAO<SharedEvents, Long> {
 

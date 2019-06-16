@@ -2,7 +2,6 @@ package com.ls.drupalcon.model.dao;
 
 import com.ls.drupalcon.model.AppDatabaseInfo;
 import com.ls.drupalcon.model.data.FloorPlan;
-import com.ls.drupalcon.model.data.Location;
 import com.ls.drupalcon.model.database.AbstractEntityDAO;
 
 

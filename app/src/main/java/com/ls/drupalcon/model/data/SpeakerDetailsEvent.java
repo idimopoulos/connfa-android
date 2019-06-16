@@ -2,8 +2,6 @@ package com.ls.drupalcon.model.data;
 
 import com.ls.utils.DateUtils;
 
-import java.text.SimpleDateFormat;
-
 public class SpeakerDetailsEvent {
 
 	private long eventId;

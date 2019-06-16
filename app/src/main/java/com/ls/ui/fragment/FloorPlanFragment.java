@@ -1,13 +1,5 @@
 package com.ls.ui.fragment;
 
-import com.ls.drupalcon.R;
-import com.ls.drupalcon.model.Model;
-import com.ls.drupalcon.model.UpdateRequest;
-import com.ls.drupalcon.model.UpdatesManager;
-import com.ls.drupalcon.model.data.FloorPlan;
-import com.ls.ui.adapter.FloorSelectorAdapter;
-import com.ls.ui.view.TouchImageView;
-
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -21,6 +13,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Spinner;
+
+import com.ls.drupalcon.R;
+import com.ls.drupalcon.model.Model;
+import com.ls.drupalcon.model.UpdateRequest;
+import com.ls.drupalcon.model.UpdatesManager;
+import com.ls.drupalcon.model.data.FloorPlan;
+import com.ls.ui.adapter.FloorSelectorAdapter;
+import com.ls.ui.view.TouchImageView;
 
 import java.util.ArrayList;
 import java.util.List;

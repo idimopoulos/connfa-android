@@ -2,6 +2,7 @@ package com.ls.drupalcon.model.data;
 
 import com.google.gson.annotations.SerializedName;
 import com.ls.drupalcon.model.UpdateRequest;
+
 import java.util.List;
 
 public class UpdateDate {

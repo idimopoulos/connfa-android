@@ -1,20 +1,19 @@
 package com.ls.ui.activity;
 
+import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ScrollView;
+
 import com.ls.drupalcon.R;
 import com.ls.drupalcon.model.Model;
 import com.ls.drupalcon.model.UpdateRequest;
 import com.ls.drupalcon.model.UpdatesManager;
 import com.ls.utils.AnalyticsManager;
-
-import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.MenuItem;
-import android.webkit.WebView;
-import android.widget.ScrollView;
-
 import com.ls.utils.WebviewUtils;
 
 import java.util.List;

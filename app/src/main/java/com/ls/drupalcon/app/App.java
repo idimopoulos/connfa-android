@@ -1,22 +1,20 @@
 package com.ls.drupalcon.app;
 
-import com.google.android.gms.analytics.GoogleAnalytics;
-import com.google.android.gms.analytics.Tracker;
+import android.content.Context;
+import android.support.multidex.MultiDexApplication;
 
 import com.crashlytics.android.Crashlytics;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Tracker;
 import com.ls.drupal.DrupalClient;
 import com.ls.drupalcon.R;
 import com.ls.drupalcon.model.AppDatabaseInfo;
 import com.ls.drupalcon.model.Model;
-import com.ls.drupalcon.model.PreferencesManager;
 import com.ls.drupalcon.model.database.LAPIDBRegister;
 import com.ls.http.base.BaseRequest;
 import com.ls.util.image.DrupalImageView;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
-
-import android.content.Context;
-import android.support.multidex.MultiDexApplication;
 
 import io.fabric.sdk.android.Fabric;
 

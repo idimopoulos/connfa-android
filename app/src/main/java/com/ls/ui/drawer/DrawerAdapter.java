@@ -1,17 +1,15 @@
 package com.ls.ui.drawer;
 
-import com.ls.drupalcon.R;
-import com.ls.drupalcon.app.App;
-import com.ls.utils.L;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.ls.drupalcon.R;
+import com.ls.drupalcon.app.App;
 
 import java.util.List;
 

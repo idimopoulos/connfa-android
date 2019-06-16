@@ -1,35 +1,5 @@
 package com.ls.ui.fragment;
 
-import com.astuetz.PagerSlidingTabStrip;
-import com.ls.drupalcon.model.Listener;
-import com.ls.drupalcon.model.managers.SharedScheduleManager;
-import com.ls.drupalcon.model.managers.ToastManager;
-import com.ls.http.base.ResponseData;
-import com.ls.ui.dialog.AddScheduleDialog;
-import com.ls.ui.dialog.CreateScheduleDialog;
-import com.ls.ui.dialog.EditScheduleDialog;
-import com.ls.ui.drawer.FriendFavoritesStrategy;
-import com.ls.ui.view.MaterialTapTargetPrompt;
-import com.ls.drupalcon.R;
-import com.ls.drupalcon.app.App;
-import com.ls.drupalcon.model.Model;
-import com.ls.drupalcon.model.PreferencesManager;
-import com.ls.drupalcon.model.UpdateRequest;
-import com.ls.drupalcon.model.UpdatesManager;
-import com.ls.ui.activity.HomeActivity;
-import com.ls.ui.adapter.BaseEventDaysPagerAdapter;
-import com.ls.ui.drawer.BofsStrategy;
-import com.ls.ui.drawer.EventHolderFragmentStrategy;
-import com.ls.ui.drawer.EventMode;
-import com.ls.ui.drawer.FavoritesStrategy;
-import com.ls.ui.drawer.ProgramStrategy;
-import com.ls.ui.drawer.SocialStrategy;
-import com.ls.ui.receiver.ReceiverManager;
-import com.ls.utils.DateUtils;
-import com.ls.utils.NetworkUtils;
-
-import org.jetbrains.annotations.NotNull;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -56,6 +26,36 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.astuetz.PagerSlidingTabStrip;
+import com.ls.drupalcon.R;
+import com.ls.drupalcon.app.App;
+import com.ls.drupalcon.model.Listener;
+import com.ls.drupalcon.model.Model;
+import com.ls.drupalcon.model.PreferencesManager;
+import com.ls.drupalcon.model.UpdateRequest;
+import com.ls.drupalcon.model.UpdatesManager;
+import com.ls.drupalcon.model.managers.SharedScheduleManager;
+import com.ls.drupalcon.model.managers.ToastManager;
+import com.ls.http.base.ResponseData;
+import com.ls.ui.activity.HomeActivity;
+import com.ls.ui.adapter.BaseEventDaysPagerAdapter;
+import com.ls.ui.dialog.AddScheduleDialog;
+import com.ls.ui.dialog.CreateScheduleDialog;
+import com.ls.ui.dialog.EditScheduleDialog;
+import com.ls.ui.drawer.BofsStrategy;
+import com.ls.ui.drawer.EventHolderFragmentStrategy;
+import com.ls.ui.drawer.EventMode;
+import com.ls.ui.drawer.FavoritesStrategy;
+import com.ls.ui.drawer.FriendFavoritesStrategy;
+import com.ls.ui.drawer.ProgramStrategy;
+import com.ls.ui.drawer.SocialStrategy;
+import com.ls.ui.receiver.ReceiverManager;
+import com.ls.ui.view.MaterialTapTargetPrompt;
+import com.ls.utils.DateUtils;
+import com.ls.utils.NetworkUtils;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 

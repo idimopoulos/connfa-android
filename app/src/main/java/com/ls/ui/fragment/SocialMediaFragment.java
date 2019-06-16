@@ -1,14 +1,5 @@
 package com.ls.ui.fragment;
 
-import com.ls.drupalcon.R;
-import com.ls.drupalcon.model.Model;
-import com.ls.drupalcon.model.PreferencesManager;
-import com.ls.drupalcon.model.UpdateRequest;
-import com.ls.drupalcon.model.UpdatesManager;
-import com.ls.utils.NetworkUtils;
-import com.twitter.sdk.android.tweetui.TweetTimelineListAdapter;
-import com.twitter.sdk.android.tweetui.SearchTimeline;
-
 import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,6 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.ls.drupalcon.R;
+import com.ls.drupalcon.model.Model;
+import com.ls.drupalcon.model.PreferencesManager;
+import com.ls.drupalcon.model.UpdateRequest;
+import com.ls.drupalcon.model.UpdatesManager;
+import com.ls.utils.NetworkUtils;
+import com.twitter.sdk.android.tweetui.SearchTimeline;
+import com.twitter.sdk.android.tweetui.TweetTimelineListAdapter;
 
 import java.util.List;
 

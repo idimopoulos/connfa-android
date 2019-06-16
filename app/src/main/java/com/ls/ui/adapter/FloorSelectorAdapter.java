@@ -1,7 +1,5 @@
 package com.ls.ui.adapter;
 
-import com.ls.drupalcon.R;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.support.v7.widget.ThemedSpinnerAdapter;
@@ -10,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.ls.drupalcon.R;
 
 import java.util.ArrayList;
 import java.util.List;

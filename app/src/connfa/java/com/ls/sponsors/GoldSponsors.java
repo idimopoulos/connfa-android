@@ -2,7 +2,6 @@ package com.ls.sponsors;
 
 import android.content.Context;
 
-
 import com.ls.drupalcon.R;
 
 import java.util.ArrayList;

@@ -3,7 +3,6 @@ package com.ls.drupalcon.model.managers;
 import com.ls.drupal.AbstractBaseDrupalEntity;
 import com.ls.drupal.DrupalClient;
 import com.ls.drupalcon.model.data.PostResponse;
-import com.ls.drupalcon.model.data.SettingsHolder;
 
 public class TestManager extends SynchronousItemManager<PostResponse, Object, String> {
     public TestManager(DrupalClient client) {
