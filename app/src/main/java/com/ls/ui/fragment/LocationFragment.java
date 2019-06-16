@@ -1,5 +1,14 @@
 package com.ls.ui.fragment;
 
+import android.annotation.SuppressLint;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.UiSettings;
@@ -12,20 +21,11 @@ import com.ls.drupalcon.model.UpdateRequest;
 import com.ls.drupalcon.model.UpdatesManager;
 import com.ls.drupalcon.model.data.Location;
 import com.ls.drupalcon.model.managers.LocationManager;
-import com.ls.ui.view.RoundedBackgroundSpan;
 
-import android.graphics.Color;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Objects;
 
 public class LocationFragment extends Fragment implements CustomMapFragment.OnActivityCreatedListener {
 
@@ -50,9 +50,9 @@ public class LocationFragment extends Fragment implements CustomMapFragment.OnAc
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fr_location, null);
-        return view;
+    @SuppressLint("InflateParams")
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fr_location, null);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class LocationFragment extends Fragment implements CustomMapFragment.OnAc
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NotNull View view, Bundle savedInstanceState) {
         Model.instance().getUpdatesManager().registerUpdateListener(updateListener);
         replaceMapFragment();
     }
@@ -73,6 +73,7 @@ public class LocationFragment extends Fragment implements CustomMapFragment.OnAc
         new LoadLocations().execute();
     }
 
+    @SuppressLint("StaticFieldLeak")
     private class LoadLocations extends AsyncTask<Void, Void, List<Location>> {
         @Override
         protected List<Location> doInBackground(Void... params) {
@@ -91,19 +92,21 @@ public class LocationFragment extends Fragment implements CustomMapFragment.OnAc
         if (mGoogleMap == null) return;
 
         if (locations == null || locations.isEmpty()) {
-            TextView textViewAddress = (TextView) getView().findViewById(R.id.txtAddress);
+            TextView textViewAddress = Objects.requireNonNull(getView()).findViewById(R.id.txtAddress);
             textViewAddress.setText(getString(R.string.placeholder_location));
         }
 
-        for (int i = 0; i < locations.size(); i++) {
-            Location location = locations.get(i);
-            LatLng position = new LatLng(location.getLat(), location.getLon());
-            mGoogleMap.addMarker(new MarkerOptions().position(position));
+        if (locations != null) {
+            for (int i = 0; i < locations.size(); i++) {
+                Location location = locations.get(i);
+                LatLng position = new LatLng(location.getLat(), location.getLon());
+                mGoogleMap.addMarker(new MarkerOptions().position(position));
 
-            if (i == 0) {
-                CameraPosition camPos = new CameraPosition(position, ZOOM_LEVEL, TILT_LEVEL, BEARING_LEVEL);
-                mGoogleMap.moveCamera(CameraUpdateFactory.newCameraPosition(camPos));
-                fillTextViews(location);
+                if (i == 0) {
+                    CameraPosition camPos = new CameraPosition(position, ZOOM_LEVEL, TILT_LEVEL, BEARING_LEVEL);
+                    mGoogleMap.moveCamera(CameraUpdateFactory.newCameraPosition(camPos));
+                    fillTextViews(location);
+                }
             }
         }
 
@@ -119,8 +122,8 @@ public class LocationFragment extends Fragment implements CustomMapFragment.OnAc
             return;
         }
 
-        TextView txtAmsterdam = (TextView) getView().findViewById(R.id.txtPlace);
-        TextView txtAddress = (TextView) getView().findViewById(R.id.txtAddress);
+        TextView txtAmsterdam = getView().findViewById(R.id.txtPlace);
+        TextView txtAddress = getView().findViewById(R.id.txtAddress);
 
         String locationName = location.getName();
         txtAmsterdam.setText(locationName);

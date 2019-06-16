@@ -1,18 +1,17 @@
 package com.ls.ui.fragment;
 
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.SupportMapFragment;
-
 import android.os.Bundle;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 
-public class CustomMapFragment extends SupportMapFragment {
-
-    public interface OnActivityCreatedListener {
-        void onActivityCreated(GoogleMap googleMap);
-    }
-
+public class CustomMapFragment extends SupportMapFragment implements OnMapReadyCallback {
     private OnActivityCreatedListener mListener;
+
+    private void setOnActivityCreatedListener(OnActivityCreatedListener listener) {
+        mListener = listener;
+    }
 
     public static CustomMapFragment newInstance(OnActivityCreatedListener listener) {
         CustomMapFragment mapFragment = new CustomMapFragment();
@@ -22,15 +21,20 @@ public class CustomMapFragment extends SupportMapFragment {
     }
 
     @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mListener.onActivityCreated(googleMap);
+    }
+
+    public interface OnActivityCreatedListener {
+        void onActivityCreated(GoogleMap googleMap);
+    }
+
+    @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         if (mListener != null) {
-            mListener.onActivityCreated(getMap());
+            getMapAsync(this);
         }
-    }
-
-    private void setOnActivityCreatedListener(OnActivityCreatedListener listener) {
-        mListener = listener;
     }
 }
