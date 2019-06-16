@@ -80,7 +80,7 @@ dependencies {
     api "com.android.support:support-v4:$project.ANDROID_SUPPORT_LIBRARY_VERSION"
     api "com.android.support:design:$project.ANDROID_SUPPORT_LIBRARY_VERSION"
     api 'com.google.android.gms:play-services-analytics:16.0.8'
-    api 'com.google.android.gms:play-services-maps:9.0.0'
+    api 'com.google.android.gms:play-services-maps:16.1.0'
     api 'com.google.code.gson:gson:2.8.5'
     api 'org.jetbrains:annotations:17.0.0'
     api 'com.jpardogo.materialtabstrip:library:1.1.1'
