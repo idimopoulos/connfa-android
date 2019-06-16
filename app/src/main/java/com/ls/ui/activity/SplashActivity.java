@@ -26,7 +26,6 @@ public class SplashActivity extends AppCompatActivity {
     private static final int SPLASH_DURATION = 1500;
     private Handler mHandler;
 
-
     public static void startThisActivity(Activity activity) {
         Intent intent = new Intent(activity, SplashActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -52,8 +51,6 @@ public class SplashActivity extends AppCompatActivity {
                 startSplash();
             }
         }, SPLASH_DURATION);
-
-
     }
 
     @Override
@@ -66,7 +63,7 @@ public class SplashActivity extends AppCompatActivity {
         String lastUpdate = PreferencesManager.getInstance().getLastUpdateDate();
         boolean isOnline = NetworkUtils.isOn(SplashActivity.this);
         if (isOnline) {
-            checkForUpdates();
+            checkForUpdates(this);
         } else if (TextUtils.isEmpty(lastUpdate)) {
             showNoNetworkDialog();
         } else {
@@ -74,7 +71,7 @@ public class SplashActivity extends AppCompatActivity {
         }
     }
 
-    private void checkForUpdates() {
+    private static void checkForUpdates(final SplashActivity activity) {
         new AsyncTask<Void, Void, UpdatesManager>() {
             @Override
             protected UpdatesManager doInBackground(Void... params) {
@@ -85,10 +82,9 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             protected void onPostExecute(UpdatesManager manager) {
-                loadData(manager);
+                activity.loadData(manager);
             }
         }.execute();
-
     }
 
     private void loadData(UpdatesManager manager) {
@@ -113,12 +109,13 @@ public class SplashActivity extends AppCompatActivity {
             String uriString = this.getIntent().getDataString();
             Uri uri = Uri.parse(uriString);
             String codeString = uri.getQueryParameter("code");
-            if(TextUtils.isEmpty(codeString)){
+            if (TextUtils.isEmpty(codeString)) {
                 ToastManager.message(this, getString(R.string.url_is_corrupted));
                 HomeActivity.startThisActivity(this, SharedScheduleManager.MY_DEFAULT_SCHEDULE_CODE);
-            }else {
-                Long code = Long.valueOf(codeString);
-                HomeActivity.startThisActivity(this, code);
+            } else {
+                if (codeString != null) {
+                    HomeActivity.startThisActivity(this, Long.parseLong(codeString));
+                }
             }
         } else {
             HomeActivity.startThisActivity(this, SharedScheduleManager.MY_DEFAULT_SCHEDULE_CODE);

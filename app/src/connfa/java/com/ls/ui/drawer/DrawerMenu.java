@@ -23,7 +23,7 @@ public class DrawerMenu {
         return result;
     }
 
-    public static DrawerMenuItem getMyScheduleDrawerMenuItem(){
+    public static DrawerMenuItem getMyScheduleDrawerMenuItem() {
         return getNavigationDrawerItems().get(MY_SCHEDULE_POSITION);
     }
 }
