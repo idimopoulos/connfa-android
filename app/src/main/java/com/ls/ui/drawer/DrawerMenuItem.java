@@ -1,6 +1,8 @@
 package com.ls.ui.drawer;
 
 
+import org.jetbrains.annotations.NotNull;
+
 public class DrawerMenuItem {
     private final int name;
     private final int iconRes;
@@ -40,6 +42,7 @@ public class DrawerMenuItem {
         return eventMode;
     }
 
+    @NotNull
     @Override
     public String toString() {
         return "DrawerMenuItem{" +

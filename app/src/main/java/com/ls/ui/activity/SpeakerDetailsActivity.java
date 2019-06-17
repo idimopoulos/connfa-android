@@ -32,7 +32,7 @@ import com.ls.ui.view.CircleImageView;
 import com.ls.ui.view.NotifyingScrollView;
 import com.ls.utils.AnalyticsManager;
 import com.ls.utils.DateUtils;
-import com.ls.utils.WebviewUtils;
+import com.ls.utils.WebViewUtils;
 
 import java.util.List;
 
@@ -57,10 +57,12 @@ public class SpeakerDetailsActivity extends StackKeeperActivity implements View.
     private boolean mIsDataLoaded;
     private boolean mIsWebLoaded;
 
+    private SpeakerDetailsActivity self = this;
+
     private UpdatesManager.DataUpdatedListener updateListener = new UpdatesManager.DataUpdatedListener() {
         @Override
         public void onDataUpdated(List<UpdateRequest> requests) {
-            loadSpeakerFromDb();
+            loadSpeakerFromDb(self);
         }
     };
 
@@ -75,7 +77,7 @@ public class SpeakerDetailsActivity extends StackKeeperActivity implements View.
         initData();
         initToolbar();
         initView();
-        loadSpeakerFromDb();
+        loadSpeakerFromDb(this);
     }
 
     @Override
@@ -86,10 +88,9 @@ public class SpeakerDetailsActivity extends StackKeeperActivity implements View.
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -104,7 +105,7 @@ public class SpeakerDetailsActivity extends StackKeeperActivity implements View.
     }
 
     private void initToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolBar);
+        Toolbar toolbar = findViewById(R.id.toolBar);
         if (toolbar != null) {
             toolbar.setTitle("");
             setSupportActionBar(toolbar);
@@ -118,32 +119,32 @@ public class SpeakerDetailsActivity extends StackKeeperActivity implements View.
         mViewToolbar = findViewById(R.id.viewToolbar);
         mViewToolbar.setAlpha(0);
 
-        mTitle = (TextView) findViewById(R.id.toolbarTitle);
+        mTitle = findViewById(R.id.toolbarTitle);
         mTitle.setText(mSpeakerName);
         mTitle.setAlpha(0);
     }
 
     private void initView() {
-        mScrollView = (NotifyingScrollView) findViewById(R.id.scrollView);
+        mScrollView = findViewById(R.id.scrollView);
         mScrollView.setOnScrollChangedListener(onScrollChangedListener);
         mLayoutPlaceholder = findViewById(R.id.layout_placeholder);
     }
 
-    private void loadSpeakerFromDb() {
-        if (mSpeakerId == -1) return;
+    private static void loadSpeakerFromDb(final SpeakerDetailsActivity activity) {
+        if (activity.mSpeakerId == -1) return;
 
         new AsyncTask<Void, Void, Speaker>() {
             @Override
             protected Speaker doInBackground(Void... params) {
-                return mSpeakerManager.getSpeakerById(mSpeakerId);
+                return activity.mSpeakerManager.getSpeakerById(activity.mSpeakerId);
             }
 
             @Override
             protected void onPostExecute(Speaker speaker) {
                 if (speaker != null) {
-                    fillView(speaker);
+                    activity.fillView(speaker);
                 } else {
-                    finish();
+                    activity.finish();
                 }
             }
         }.execute();
@@ -154,11 +155,11 @@ public class SpeakerDetailsActivity extends StackKeeperActivity implements View.
         fillSpeakerInfo();
         fillSpeakerDescription();
         fillSocialNetworks();
-        loadSpeakerEvents(mSpeaker);
+        loadSpeakerEvents(mSpeaker, this);
     }
 
     private void fillSpeakerInfo() {
-        CircleImageView imgPhoto = (CircleImageView) findViewById(R.id.imgPhoto);
+        CircleImageView imgPhoto = findViewById(R.id.imgPhoto);
         String imageUrl = mSpeaker.getAvatarImageUrl();
         imgPhoto.setImageWithURL(imageUrl);
 
@@ -172,7 +173,7 @@ public class SpeakerDetailsActivity extends StackKeeperActivity implements View.
             findViewById(R.id.txtSpeakerPosition).setVisibility(View.VISIBLE);
         }
 
-        TextView jobTxt = (TextView) findViewById(R.id.txtSpeakerPosition);
+        TextView jobTxt = findViewById(R.id.txtSpeakerPosition);
         String jobValue = mSpeaker.getJobTitle() + " at " + mSpeaker.getOrganization();
 
         if (TextUtils.isEmpty(mSpeaker.getJobTitle()) || TextUtils.isEmpty(mSpeaker.getOrganization())) {
@@ -183,10 +184,10 @@ public class SpeakerDetailsActivity extends StackKeeperActivity implements View.
     }
 
     private void fillSpeakerDescription() {
-        WebView webView = (WebView) findViewById(R.id.webView);
+        WebView webView = findViewById(R.id.webView);
         if (!TextUtils.isEmpty(mSpeaker.getCharact())) {
 
-            String html = WebviewUtils.getHtml(this, mSpeaker.getCharact());
+            String html = WebViewUtils.getHtml(this, mSpeaker.getCharact());
             webView.setVisibility(View.VISIBLE);
 
             webView.setHorizontalScrollBarEnabled(false);
@@ -200,7 +201,7 @@ public class SpeakerDetailsActivity extends StackKeeperActivity implements View.
 
                 @Override
                 public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                    WebviewUtils.openUrl(SpeakerDetailsActivity.this, url);
+                    WebViewUtils.openUrl(SpeakerDetailsActivity.this, url);
                     return true;
                 }
             });
@@ -226,7 +227,7 @@ public class SpeakerDetailsActivity extends StackKeeperActivity implements View.
         }
     }
 
-    private void loadSpeakerEvents(final Speaker speaker) {
+    private static void loadSpeakerEvents(final Speaker speaker, final SpeakerDetailsActivity activity) {
         new AsyncTask<Void, Void, List<SpeakerDetailsEvent>>() {
             @Override
             protected List<SpeakerDetailsEvent> doInBackground(Void... params) {
@@ -236,16 +237,16 @@ public class SpeakerDetailsActivity extends StackKeeperActivity implements View.
 
             @Override
             protected void onPostExecute(List<SpeakerDetailsEvent> events) {
-                mIsDataLoaded = true;
-                addSpeakerEvents(events);
-                completeLoading();
-                updatePlaceholderVisibility(events);
+                activity.mIsDataLoaded = true;
+                activity.addSpeakerEvents(events);
+                activity.completeLoading();
+                activity.updatePlaceholderVisibility(events);
             }
         }.execute();
     }
 
     private void addSpeakerEvents(List<SpeakerDetailsEvent> events) {
-        LinearLayout layoutEvents = (LinearLayout) findViewById(R.id.layoutEvents);
+        LinearLayout layoutEvents = findViewById(R.id.layoutEvents);
         LayoutInflater inflater = LayoutInflater.from(SpeakerDetailsActivity.this);
         layoutEvents.removeAllViews();
 
@@ -258,7 +259,7 @@ public class SpeakerDetailsActivity extends StackKeeperActivity implements View.
 
     private void fillEventView(final SpeakerDetailsEvent event, View eventView) {
         ((TextView) eventView.findViewById(R.id.txtArticleName)).setText(event.getEventName());
-        TextView txtTrack = (TextView) eventView.findViewById(R.id.txtTrack);
+        TextView txtTrack = eventView.findViewById(R.id.txtTrack);
         if (!TextUtils.isEmpty(event.getTrackName())) {
             txtTrack.setText(event.getTrackName());
             txtTrack.setVisibility(View.VISIBLE);
@@ -268,7 +269,7 @@ public class SpeakerDetailsActivity extends StackKeeperActivity implements View.
         String fromTime = DateUtils.getInstance().getTime(this, event.getFrom());
         String toTime = DateUtils.getInstance().getTime(this, event.getTo());
 
-        TextView txtWhere = (TextView) eventView.findViewById(R.id.txtWhere);
+        TextView txtWhere = eventView.findViewById(R.id.txtWhere);
         String date = String.format("%s, %s - %s", weekDay, fromTime, toTime);
         txtWhere.setText(date);
         if (!event.getPlace().equals("")) {
@@ -285,8 +286,8 @@ public class SpeakerDetailsActivity extends StackKeeperActivity implements View.
     }
 
     private void initEventExpLevel(View eventView, SpeakerDetailsEvent event) {
-        TextView txtExpLevel = (TextView) eventView.findViewById(R.id.txtExpLevel);
-        ImageView imgExpLevel = (ImageView) eventView.findViewById(R.id.imgExpLevel);
+        TextView txtExpLevel = eventView.findViewById(R.id.txtExpLevel);
+        ImageView imgExpLevel = eventView.findViewById(R.id.imgExpLevel);
 
         String expLevel = event.getLevelName();
         if (!TextUtils.isEmpty(expLevel)) {

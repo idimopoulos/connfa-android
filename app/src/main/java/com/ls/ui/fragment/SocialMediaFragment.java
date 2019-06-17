@@ -18,7 +18,10 @@ import com.ls.utils.NetworkUtils;
 import com.twitter.sdk.android.tweetui.SearchTimeline;
 import com.twitter.sdk.android.tweetui.TweetTimelineListAdapter;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,7 +41,7 @@ public class SocialMediaFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_social_media, container, false);
         mLayoutPlaceholder = rootView.findViewById(R.id.layout_placeholder);
         return rootView;
@@ -54,7 +57,7 @@ public class SocialMediaFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NotNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         rootView = view;
 
@@ -65,11 +68,11 @@ public class SocialMediaFragment extends Fragment {
 
     private void fillView() {
 
-        if (!NetworkUtils.isOn(getActivity())) {
+        if (!NetworkUtils.isOn(Objects.requireNonNull(getActivity()))) {
             rootView.findViewById(R.id.list_view).setVisibility(View.GONE);
             rootView.findViewById(R.id.progressBar).setVisibility(View.GONE);
             mLayoutPlaceholder.setVisibility(View.GONE);
-            TextView emptyView = (TextView) rootView.findViewById(R.id.EmptyView);
+            TextView emptyView = rootView.findViewById(R.id.EmptyView);
             emptyView.setText(R.string.NoConnectionMessage);
         }
 
@@ -90,7 +93,7 @@ public class SocialMediaFragment extends Fragment {
             }
         });
 
-        ListView list = (ListView) rootView.findViewById(R.id.list_view);
+        ListView list = rootView.findViewById(R.id.list_view);
 
         list.setEmptyView(mLayoutPlaceholder);
         list.setAdapter(adapter);

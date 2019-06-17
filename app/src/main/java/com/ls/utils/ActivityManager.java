@@ -12,8 +12,7 @@ import android.util.Log;
 import java.util.Arrays;
 
 public class ActivityManager {
-
-    public static final boolean LOGS_ON = true;
+    private static final boolean LOGS_ON = true;
 
     private static final String ACTION_FINISH = "ACTION_FINISH";
     private static final String EXTRAS_ACTIVITIES_FINISH = "EXTRAS_ACTIVITIES_FINISH";
@@ -99,6 +98,7 @@ public class ActivityManager {
         if (excludeArr != null) {
             intent.putExtra(EXTRAS_ACTIVITIES_EXCLUDE, toNameArr(excludeArr));
         }
+        
         context.sendBroadcast(intent);
     }
 

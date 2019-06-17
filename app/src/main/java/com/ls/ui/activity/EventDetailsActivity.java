@@ -43,7 +43,7 @@ import com.ls.ui.view.NotifyingScrollView;
 import com.ls.utils.AnalyticsManager;
 import com.ls.utils.DateUtils;
 import com.ls.utils.ScheduleManager;
-import com.ls.utils.WebviewUtils;
+import com.ls.utils.WebViewUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -267,7 +267,7 @@ public class EventDetailsActivity extends StackKeeperActivity {
 
             webView.setVisibility(View.VISIBLE);
 
-            String html = WebviewUtils.getHtml(this, event.getDescription());
+            String html = WebViewUtils.getHtml(this, event.getDescription());
             webView.setHorizontalScrollBarEnabled(false);
             webView.loadDataWithBaseURL("file:///android_asset/", html, "text/html", "UTF-8", null);
             webView.setWebViewClient(new WebViewClient() {
@@ -278,7 +278,7 @@ public class EventDetailsActivity extends StackKeeperActivity {
 
                 @Override
                 public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                    WebviewUtils.openUrl(EventDetailsActivity.this, url);
+                    WebViewUtils.openUrl(EventDetailsActivity.this, url);
                     return true;
                 }
             });

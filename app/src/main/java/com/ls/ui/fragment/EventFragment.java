@@ -1,5 +1,6 @@
 package com.ls.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -27,9 +28,12 @@ import com.ls.ui.receiver.ReceiverManager;
 import com.ls.utils.AnalyticsManager;
 import com.ls.utils.DateUtils;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 public class EventFragment extends Fragment implements EventsAdapter.Listener{
@@ -71,7 +75,7 @@ public class EventFragment extends Fragment implements EventsAdapter.Listener{
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         return inflater.inflate(R.layout.fr_event, container, false);
     }
@@ -118,20 +122,20 @@ public class EventFragment extends Fragment implements EventsAdapter.Listener{
 
     private void initViews() {
         if (getView() != null) {
-            mProgressBar = (ProgressBar) getView().findViewById(R.id.progressBar);
+            mProgressBar = getView().findViewById(R.id.progressBar);
 
             mProgressBar.setIndeterminate(true);
             mAdapter = new EventsAdapter(getActivity());
             mAdapter.setOnItemClickListener(this);
 
-            mListView = (ListView) getView().findViewById(R.id.listView);
+            mListView = getView().findViewById(R.id.listView);
             mListView.setAdapter(mAdapter);
 
         }
     }
 
+    @SuppressLint("StaticFieldLeak")
     class LoadData extends AsyncTask<Void, Void, List<EventListItem>> {
-
         @Override
         protected List<EventListItem> doInBackground(Void... params) {
             return getEventItems();
@@ -196,7 +200,7 @@ public class EventFragment extends Fragment implements EventsAdapter.Listener{
         Event event = item.getEvent();
         if (item.getEvent() != null && item.getEvent().getId() != 0) {
             String eventName = item.getEvent().getName();
-            AnalyticsManager.detailsScreenTracker(getActivity(), R.string.event_category, eventName);
+            AnalyticsManager.detailsScreenTracker(Objects.requireNonNull(getActivity()), R.string.event_category, eventName);
             getSponsor();
             EventDetailsActivity.startThisActivity(getActivity(), event.getId(), mDay, true);
         }
@@ -238,7 +242,7 @@ public class EventFragment extends Fragment implements EventsAdapter.Listener{
 
     private void getSponsor() {
         Random randomGenerator = new Random();
-        List<SponsorItem> sponsorsList = GoldSponsors.getSponsorsList(getContext());
+        List<SponsorItem> sponsorsList = GoldSponsors.getSponsorsList(Objects.requireNonNull(getContext()));
         int randomInt = randomGenerator.nextInt(sponsorsList.size());
         SponsorManager.getInstance().setSponsorId(randomInt);
 

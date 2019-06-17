@@ -51,8 +51,8 @@ public class DrawerAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.item_drawer, parent, false);
             holder = new ViewHolder();
-            holder.txtName = (TextView) convertView.findViewById(R.id.txtName);
-            holder.image = (ImageView) convertView.findViewById(R.id.image);
+            holder.txtName = convertView.findViewById(R.id.txtName);
+            holder.image = convertView.findViewById(R.id.image);
             holder.divider =  convertView.findViewById(R.id.divider);
             convertView.setTag(holder);
         }

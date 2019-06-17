@@ -88,7 +88,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void loadData(UpdatesManager manager) {
-        manager.startLoading(new UpdateCallback() {
+        UpdatesManager.startLoading(new UpdateCallback() {
             @Override
             public void onDownloadSuccess() {
                 L.d("onDownloadSuccess");
@@ -100,7 +100,7 @@ public class SplashActivity extends AppCompatActivity {
                 L.d("onDownloadError");
                 showNoNetworkDialog();
             }
-        });
+        }, manager);
     }
 
     private void startMainActivity() {

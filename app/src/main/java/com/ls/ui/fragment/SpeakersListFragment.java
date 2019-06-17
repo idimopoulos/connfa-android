@@ -27,7 +27,10 @@ import com.ls.drupalcon.model.managers.SpeakerManager;
 import com.ls.ui.activity.SpeakerDetailsActivity;
 import com.ls.ui.adapter.SpeakersAdapter;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
+import java.util.Objects;
 
 public class SpeakersListFragment extends Fragment
         implements AdapterView.OnItemClickListener, SpeakersAdapter.OnFilterChangeListener {
@@ -42,10 +45,12 @@ public class SpeakersListFragment extends Fragment
 
     private ProgressBar mProgressBar;
 
+    private SpeakersListFragment self = this;
+
     private UpdatesManager.DataUpdatedListener updateListener = new UpdatesManager.DataUpdatedListener() {
         @Override
         public void onDataUpdated( List<UpdateRequest> requests) {
-            initView();
+            initView(self);
         }
     };
 
@@ -56,7 +61,7 @@ public class SpeakersListFragment extends Fragment
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fr_speakers, null);
     }
 
@@ -64,7 +69,7 @@ public class SpeakersListFragment extends Fragment
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Model.instance().getUpdatesManager().registerUpdateListener(updateListener);
-        initView();
+        initView(this);
     }
 
     @Override
@@ -81,7 +86,7 @@ public class SpeakersListFragment extends Fragment
     }
 
     private void initSearchMenuItem(Menu menu) {
-        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        SearchManager searchManager = (SearchManager) Objects.requireNonNull(getActivity()).getSystemService(Context.SEARCH_SERVICE);
         android.support.v7.widget.SearchView searchView = (android.support.v7.widget.SearchView) menu.findItem(R.id.actionSearch).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
         searchView.setOnQueryTextListener(new android.support.v7.widget.SearchView.OnQueryTextListener() {
@@ -108,16 +113,16 @@ public class SpeakersListFragment extends Fragment
         }
     }
 
-    private void initView() {
-        if (getView() == null) {
+    private static void initView(final SpeakersListFragment activity) {
+        if (activity.getView() == null) {
             return;
         }
 
-        mLayoutContent = getView().findViewById(R.id.layout_content);
-        mLayoutPlaceholder = getView().findViewById(R.id.layout_placeholder);
-        mProgressBar = (ProgressBar) getView().findViewById(R.id.progressBar);
-        mTxtNoSearchResult = (TextView) getView().findViewById(R.id.txtSearchEmpty);
-        mListView = (ListView) getView().findViewById(R.id.listSpeakers);
+        activity.mLayoutContent = activity.getView().findViewById(R.id.layout_content);
+        activity.mLayoutPlaceholder = activity.getView().findViewById(R.id.layout_placeholder);
+        activity.mProgressBar = activity.getView().findViewById(R.id.progressBar);
+        activity.mTxtNoSearchResult = activity.getView().findViewById(R.id.txtSearchEmpty);
+        activity.mListView = activity.getView().findViewById(R.id.listSpeakers);
 
         new AsyncTask<Void, Void, List<Speaker>>() {
             @Override
@@ -128,7 +133,7 @@ public class SpeakersListFragment extends Fragment
 
             @Override
             protected void onPostExecute(List<Speaker> speakers) {
-                updateView(speakers);
+                activity.updateView(speakers);
             }
         }.execute();
     }

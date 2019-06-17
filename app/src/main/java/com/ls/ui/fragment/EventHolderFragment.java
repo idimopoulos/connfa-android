@@ -1,5 +1,6 @@
 package com.ls.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -58,6 +59,7 @@ import com.ls.utils.NetworkUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Objects;
 
 public class EventHolderFragment extends Fragment {
 
@@ -90,7 +92,7 @@ public class EventHolderFragment extends Fragment {
             mProgressBar.setVisibility(View.GONE);
             isItemRefreshEnabled = true;
             updateData(requests);
-            getActivity().invalidateOptionsMenu();
+            Objects.requireNonNull(getActivity()).invalidateOptionsMenu();
 
         }
     };
@@ -121,9 +123,9 @@ public class EventHolderFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fr_holder_event, container, false);
-        mProgressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        mProgressBar = view.findViewById(R.id.progressBar);
         return view;
     }
 
@@ -149,7 +151,7 @@ public class EventHolderFragment extends Fragment {
         super.onPrepareOptionsMenu(menu);
         if (isFavoriteScreen()) {
             menu.clear();
-            MenuInflater menuInflater = getActivity().getMenuInflater();
+            MenuInflater menuInflater = Objects.requireNonNull(getActivity()).getMenuInflater();
             if (strategy.isMySchedule()) {
                 showSearchPrompt();
                 menuInflater.inflate(R.menu.menu_my_schedule, menu);
@@ -177,7 +179,7 @@ public class EventHolderFragment extends Fragment {
                 showFilter();
                 break;
             case R.id.actionAddSchedule:
-                if (NetworkUtils.isOn(getContext())) {
+                if (NetworkUtils.isOn(Objects.requireNonNull(getContext()))) {
                     showAddScheduleDialog();
                 } else {
                     ToastManager.message(getContext(), getString(R.string.NoConnectionMessage));
@@ -204,27 +206,30 @@ public class EventHolderFragment extends Fragment {
 
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NotNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Model.instance().getUpdatesManager().registerUpdateListener(updateReceiver);
         favoriteReceiver.register(getActivity());
         initData();
         initView();
         new LoadData().execute();
-        final long sharedScheduleCode = getArguments().getLong(SHARED_SCHEDULE_CODE_EXTRAS);
-        if (sharedScheduleCode > 0) {
-            if (Model.instance().getSharedScheduleManager().checkIfCodeIsExist(sharedScheduleCode)) {
-                refreshSpinner();
-            } else {
-                if (NetworkUtils.isOn(getContext())) {
-                    fetchSharedEventsByCode(sharedScheduleCode, "Schedule " + sharedScheduleCode);
-                } else {
-                    ToastManager.messageSync(getContext(), getString(R.string.NoConnectionMessage));
-                }
+        final long sharedScheduleCode;
+        if (getArguments() != null) {
+            sharedScheduleCode = getArguments().getLong(SHARED_SCHEDULE_CODE_EXTRAS);
 
+            if (sharedScheduleCode > 0) {
+                if (Model.instance().getSharedScheduleManager().checkIfCodeIsExist(sharedScheduleCode)) {
+                    refreshSpinner();
+                } else {
+                    if (NetworkUtils.isOn(Objects.requireNonNull(getContext()))) {
+                        fetchSharedEventsByCode(sharedScheduleCode, "Schedule " + sharedScheduleCode);
+                    } else {
+                        ToastManager.messageSync(getContext(), getString(R.string.NoConnectionMessage));
+                    }
+
+                }
             }
         }
-
     }
 
     @Override
@@ -269,22 +274,22 @@ public class EventHolderFragment extends Fragment {
         mLayoutPlaceholder = view.findViewById(R.id.layout_placeholder);
 
         mAdapter = new BaseEventDaysPagerAdapter(getChildFragmentManager());
-        mViewPager = (ViewPager) view.findViewById(R.id.viewPager);
+        mViewPager = view.findViewById(R.id.viewPager);
         mViewPager.setAdapter(mAdapter);
-        Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Roboto-Regular.ttf");
-        mPagerTabs = (PagerSlidingTabStrip) getView().findViewById(R.id.pager_tab_strip);
+        Typeface typeface = Typeface.createFromAsset(Objects.requireNonNull(getActivity()).getAssets(), "fonts/Roboto-Regular.ttf");
+        mPagerTabs = getView().findViewById(R.id.pager_tab_strip);
         mPagerTabs.setTypeface(typeface, 0);
         mPagerTabs.setViewPager(mViewPager);
-        mTextViewNoContent = (TextView) view.findViewById(R.id.text_view_placeholder);
-        mImageViewNoContent = (ImageView) view.findViewById(R.id.image_view_placeholder);
-        mProgressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        mTextViewNoContent = view.findViewById(R.id.text_view_placeholder);
+        mImageViewNoContent = view.findViewById(R.id.image_view_placeholder);
+        mProgressBar = view.findViewById(R.id.progressBar);
 
         setHasOptionsMenu(true);
     }
 
 
+    @SuppressLint("StaticFieldLeak")
     class LoadData extends AsyncTask<Void, Void, List<Long>> {
-
         @Override
         protected List<Long> doInBackground(Void... params) {
             return strategy.getDayList();
@@ -352,9 +357,9 @@ public class EventHolderFragment extends Fragment {
         }
 
         if (mIsFilterUsed) {
-            filter.setIcon(getResources().getDrawable(R.drawable.ic_filter));
+            filter.setIcon(getResources().getDrawable(R.drawable.ic_filter, null));
         } else {
-            filter.setIcon(getResources().getDrawable(R.drawable.ic_filter_empty));
+            filter.setIcon(getResources().getDrawable(R.drawable.ic_filter_empty, null));
         }
     }
 
@@ -398,10 +403,15 @@ public class EventHolderFragment extends Fragment {
         }
         AppCompatActivity activity = (AppCompatActivity) getActivity();
 
-        android.support.v7.app.ActionBar toolbar = activity.getSupportActionBar();
+        android.support.v7.app.ActionBar toolbar = null;
+
+        if (activity != null) {
+            toolbar = activity.getSupportActionBar();
+        }
 
         SharedScheduleManager sharedScheduleManager = Model.instance().getSharedScheduleManager();
-        spinnerAdapter = new ArrayAdapter<>(getContext(), R.layout.item_spinner, sharedScheduleManager.getAllSchedulesNameList());
+
+        spinnerAdapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()), R.layout.item_spinner, sharedScheduleManager.getAllSchedulesNameList());
         spinnerAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
 
         navigationSpinner = new Spinner(getContext());
@@ -416,9 +426,6 @@ public class EventHolderFragment extends Fragment {
 
             }
         });
-//        navigationSpinner.setPopupBackgroundResource(R.drawable.selector_light);
-//        navigationSpinner.setBackgroundResource(R.drawable.selector_light);
-
 
         if (toolbar != null) {
             toolbar.setCustomView(navigationSpinner);
@@ -431,11 +438,11 @@ public class EventHolderFragment extends Fragment {
                 Model.instance().getSharedScheduleManager().setCurrentSchedule(position);
                 if (position == 0) {
                     strategy = new FavoritesStrategy();
-                    getActivity().invalidateOptionsMenu();
+                    Objects.requireNonNull(getActivity()).invalidateOptionsMenu();
 
                 } else {
                     strategy = new FriendFavoritesStrategy();
-                    getActivity().invalidateOptionsMenu();
+                    Objects.requireNonNull(getActivity()).invalidateOptionsMenu();
                 }
                 new LoadData().execute();
 
@@ -451,7 +458,12 @@ public class EventHolderFragment extends Fragment {
 
     private void disableCustomToolBar() {
         AppCompatActivity activity = (AppCompatActivity) getActivity();
-        android.support.v7.app.ActionBar toolbar = activity.getSupportActionBar();
+        android.support.v7.app.ActionBar toolbar = null;
+
+        if (activity != null) {
+            toolbar = activity.getSupportActionBar();
+        }
+
         if (toolbar != null) {
             toolbar.setDisplayShowTitleEnabled(true);
             toolbar.setDisplayShowCustomEnabled(false);
@@ -460,7 +472,12 @@ public class EventHolderFragment extends Fragment {
 
     private void setToolbarTitle() {
         AppCompatActivity activity = (AppCompatActivity) getActivity();
-        android.support.v7.app.ActionBar toolbar = activity.getSupportActionBar();
+        android.support.v7.app.ActionBar toolbar = null;
+
+        if (activity != null) {
+            toolbar = activity.getSupportActionBar();
+        }
+
         if (toolbar != null) {
             toolbar.setTitle(getString(R.string.my_schedule));
         }
@@ -472,7 +489,7 @@ public class EventHolderFragment extends Fragment {
 
     private void shareSchedule() {
 
-        if (!NetworkUtils.isOn(getContext())) {
+        if (!NetworkUtils.isOn(Objects.requireNonNull(getContext()))) {
             ToastManager.message(getContext(), getString(R.string.NoConnectionMessage));
             return;
         }
@@ -498,7 +515,8 @@ public class EventHolderFragment extends Fragment {
                 .append(getString(R.string.app_name))
                 .append(" where I will be an attendee.")
                 .append(" Here is the link to add my schedule into the app: ")
-                .append("https://connfa-integration.uat.link/schedule/share?code=" + scheduleManager.getMyScheduleCode())
+                .append("https://connfa-integration.uat.link/schedule/share?code=")
+                .append(scheduleManager.getMyScheduleCode())
                 .append("\n If you have any issues with the link, use the Schedule Unique Code in the app to add my schedule manually.\n")
                 .append("\nSchedule Unique Code: ")
                 .append(scheduleManager.getMyScheduleCode());
@@ -570,7 +588,7 @@ public class EventHolderFragment extends Fragment {
     }
 
     private void undo(String message) {
-        final Snackbar snack = Snackbar.make(getView(), message, Snackbar.LENGTH_LONG);
+        final Snackbar snack = Snackbar.make(Objects.requireNonNull(getView()), message, Snackbar.LENGTH_LONG);
         snack.setAction(R.string.undo, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -617,7 +635,7 @@ public class EventHolderFragment extends Fragment {
             strategy = new FriendFavoritesStrategy();
         }
         setSpinnerPosition(Model.instance().getSharedScheduleManager().getItemPosition());
-        getActivity().invalidateOptionsMenu();
+        Objects.requireNonNull(getActivity()).invalidateOptionsMenu();
     }
 
     private void setSpinnerPosition(int position) {
@@ -629,13 +647,12 @@ public class EventHolderFragment extends Fragment {
     }
 
     private void refreshContent() {
-        if (NetworkUtils.isOn(getContext())) {
+        if (NetworkUtils.isOn(Objects.requireNonNull(getContext()))) {
             mProgressBar.setVisibility(View.VISIBLE);
-            UpdatesManager manager = Model.instance().getUpdatesManager();
-            manager.startLoading(null);
+            UpdatesManager.startLoading(null, Model.instance().getUpdatesManager());
 
             isItemRefreshEnabled = false;
-            getActivity().invalidateOptionsMenu();
+            Objects.requireNonNull(getActivity()).invalidateOptionsMenu();
         } else {
             ToastManager.messageSync(getContext(), getString(R.string.NoConnectionMessage));
         }
@@ -662,10 +679,7 @@ public class EventHolderFragment extends Fragment {
         String messageText = getString(R.string.tap_the_three_dots);
         String warningText = getString(R.string.warning_text);
 
-        Spannable span = new SpannableString(messageText + warningText);
-//        span.setSpan(new RelativeSizeSpan(0.8f), messageText.length(), messageText.length() + warningText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        return span;
+        return new SpannableString(messageText + warningText);
     }
 
     private void updateMenuTitles(Menu menu) {
@@ -677,6 +691,4 @@ public class EventHolderFragment extends Fragment {
             bedMenuItem.setEnabled(false);
         }
     }
-
-
 }

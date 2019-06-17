@@ -19,9 +19,12 @@ import com.ls.drupalcon.model.data.Level;
 import com.ls.drupalcon.model.data.Track;
 import com.ls.ui.adapter.FilterDialogAdapter;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class FilterDialog extends DialogFragment {
 
@@ -69,11 +72,12 @@ public class FilterDialog extends DialogFragment {
         }
     }
 
+    @NotNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        LayoutInflater inflater = getActivity().getLayoutInflater();
+        LayoutInflater inflater = Objects.requireNonNull(getActivity()).getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_filter, null);
 
         initViews(view);
@@ -92,26 +96,26 @@ public class FilterDialog extends DialogFragment {
     }
 
     private void initList(final View view) {
-        mListView = (ExpandableListView) view.findViewById(R.id.listView);
+        mListView = view.findViewById(R.id.listView);
 
         DisplayMetrics metrics = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        Objects.requireNonNull(getActivity()).getWindowManager().getDefaultDisplay().getMetrics(metrics);
         int width = metrics.widthPixels;
 
-        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            mListView.setIndicatorBounds(width - (int) getResources().getDimension(R.dimen.exp_list_indicator_bounds_left),
-                    width - (int) getResources().getDimension(R.dimen.exp_list_indicator_bounds_right));
-        } else {
-            mListView.setIndicatorBoundsRelative(width - (int) getResources().getDimension(R.dimen.exp_list_indicator_bounds_left),
-                    width - (int) getResources().getDimension(R.dimen.exp_list_indicator_bounds_right));
-        }
+        mListView.setIndicatorBoundsRelative(width - (int) getResources().getDimension(R.dimen.exp_list_indicator_bounds_left),
+                width - (int) getResources().getDimension(R.dimen.exp_list_indicator_bounds_right));
 
-        List<String> listDataHeader = new ArrayList<String>();
+        List<String> listDataHeader = new ArrayList<>();
         listDataHeader.add(getActivity().getString(R.string.exp_levels));
         listDataHeader.add(getActivity().getString(R.string.tracks));
 
-        String[] expLevels = getArguments().getStringArray(ARG_EXP_LEVEL);
-        String[] tracks = getArguments().getStringArray(ARG_TRACKS);
+        String[] expLevels = new String[0];
+        String[] tracks = new String[0];
+
+        if (getArguments() != null) {
+            expLevels = getArguments().getStringArray(ARG_EXP_LEVEL);
+            tracks = getArguments().getStringArray(ARG_TRACKS);
+        }
 
         HashMap<String, String[]> listDataChild = new HashMap<>();
         listDataChild.put(listDataHeader.get(0), expLevels);
@@ -148,7 +152,7 @@ public class FilterDialog extends DialogFragment {
     }
 
     private void initButtons(View view) {
-        TextView txtApply = (TextView) view.findViewById(R.id.btnApply);
+        TextView txtApply = view.findViewById(R.id.btnApply);
         txtApply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -157,7 +161,7 @@ public class FilterDialog extends DialogFragment {
             }
         });
 
-        TextView txtClear = (TextView) view.findViewById(R.id.btnClear);
+        TextView txtClear = view.findViewById(R.id.btnClear);
         txtClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
+import java.util.Objects;
+
 public class KeyboardUtils {
     public static void showKeyboard(View theView) {
         Context context = theView.getContext();
@@ -31,6 +33,6 @@ public class KeyboardUtils {
 
     public static void showKeyboardFromDialog(View theView, Dialog dialog) {
         theView.requestFocus();
-        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        Objects.requireNonNull(dialog.getWindow()).setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
 }

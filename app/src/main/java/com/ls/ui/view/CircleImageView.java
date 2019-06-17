@@ -94,8 +94,8 @@ public class CircleImageView extends DrupalImageView {
 
         paint.setAntiAlias(true);
 
-        canvas.drawCircle(sbmp.getWidth() / 2, sbmp.getHeight() / 2,
-                sbmp.getWidth() / 2, paint);
+        canvas.drawCircle((float) sbmp.getWidth() / 2, (float) sbmp.getHeight() / 2,
+                (float) sbmp.getWidth() / 2, paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         canvas.drawBitmap(sbmp, rect, rect, paint);
 

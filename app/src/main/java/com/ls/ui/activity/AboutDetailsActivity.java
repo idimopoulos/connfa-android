@@ -14,7 +14,7 @@ import com.ls.drupalcon.model.Model;
 import com.ls.drupalcon.model.UpdateRequest;
 import com.ls.drupalcon.model.UpdatesManager;
 import com.ls.utils.AnalyticsManager;
-import com.ls.utils.WebviewUtils;
+import com.ls.utils.WebViewUtils;
 
 import java.util.List;
 
@@ -54,10 +54,9 @@ public class AboutDetailsActivity extends StateActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -82,7 +81,7 @@ public class AboutDetailsActivity extends StateActivity {
                 @Override
                 public boolean shouldOverrideUrlLoading(WebView view, String url)
                 {
-                    WebviewUtils.openUrl(AboutDetailsActivity.this, url);
+                    WebViewUtils.openUrl(AboutDetailsActivity.this, url);
                     return true;
                 }
             });

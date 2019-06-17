@@ -21,6 +21,8 @@ import com.ls.drupalcon.model.Model;
 import com.ls.drupalcon.model.managers.SharedScheduleManager;
 import com.ls.drupalcon.model.managers.ToastManager;
 
+import java.util.Objects;
+
 public class CreateScheduleDialog extends DialogFragment {
 
     public static final String TAG = CreateScheduleDialog.class.getName();
@@ -60,20 +62,24 @@ public class CreateScheduleDialog extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        code = getArguments().getLong(EXTRA_SCHEDULE_CODE, SharedScheduleManager.MY_DEFAULT_SCHEDULE_CODE);
+        if (getArguments() != null) {
+            code = getArguments().getLong(EXTRA_SCHEDULE_CODE, SharedScheduleManager.MY_DEFAULT_SCHEDULE_CODE);
+        }
 
         ViewGroup contentView = (ViewGroup) LayoutInflater.from(getActivity()).inflate(R.layout.dialog_shedule_name, null);
-        final EditText editTextId = (EditText) contentView.findViewById(R.id.scheduleName);
+        final EditText editTextId = contentView.findViewById(R.id.scheduleName);
         editTextId.setText(getScheduleName());
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
         alertDialogBuilder.setTitle(getArguments().getString(EXTRA_SCHEDULE_TITLE));
         alertDialogBuilder.setView(contentView);
-        alertDialogBuilder.setPositiveButton(getActivity().getString(android.R.string.ok), null);
+        alertDialogBuilder.setPositiveButton(Objects.requireNonNull(getActivity()).getString(android.R.string.ok), null);
         alertDialogBuilder.setNegativeButton(getActivity().getString(android.R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_CANCELED, getActivity().getIntent());
+                if (getTargetFragment() != null) {
+                    getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_CANCELED, Objects.requireNonNull(getActivity()).getIntent());
+                }
             }
         });
         final AlertDialog dialog = alertDialogBuilder.create();
@@ -89,10 +95,12 @@ public class CreateScheduleDialog extends DialogFragment {
                     ToastManager.messageSync(getContext(), "Please enter schedule name");
                 } else {
                     if (!Model.instance().getSharedScheduleManager().checkIfNameIsExist(text)) {
-                        Intent intent = getActivity().getIntent();
+                        Intent intent = Objects.requireNonNull(getActivity()).getIntent();
                         intent.putExtra(EXTRA_SCHEDULE_CODE, code);
                         intent.putExtra(EXTRA_SCHEDULE_NAME, text);
-                        getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
+                        if (getTargetFragment() != null) {
+                            getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
+                        }
                         dialog.dismiss();
                     }
                 }

@@ -20,6 +20,8 @@ import com.ls.drupalcon.model.Model;
 import com.ls.drupalcon.model.managers.ToastManager;
 import com.ls.http.base.ResponseData;
 
+import java.util.Objects;
+
 public class AddScheduleDialog extends DialogFragment {
 
     public static final String TAG = AddScheduleDialog.class.getName();
@@ -41,17 +43,19 @@ public class AddScheduleDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         ViewGroup contentView = (ViewGroup) LayoutInflater.from(getActivity()).inflate(R.layout.dialog_add_shedule, null);
 
-        final EditText editTextId = (EditText) contentView.findViewById(R.id.uniqueCode);
+        final EditText editTextId = contentView.findViewById(R.id.uniqueCode);
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
         alertDialogBuilder.setTitle(R.string.add_a_schedule);
         alertDialogBuilder.setView(contentView);
-        alertDialogBuilder.setPositiveButton(getActivity().getString(R.string.add), null);
+        alertDialogBuilder.setPositiveButton(Objects.requireNonNull(getActivity()).getString(R.string.add), null);
 
         alertDialogBuilder.setNegativeButton(getActivity().getString(android.R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_CANCELED, getActivity().getIntent());
+                if (getTargetFragment() != null) {
+                    getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_CANCELED, Objects.requireNonNull(getActivity()).getIntent());
+                }
             }
         });
         final AlertDialog dialog = alertDialogBuilder.create();
@@ -69,7 +73,9 @@ public class AddScheduleDialog extends DialogFragment {
                 } else {
                     final long code = Long.parseLong(text);
                     if (Model.instance().getSharedScheduleManager().checkIfCodeIsExist(code)) {
-                        getTargetFragment().onActivityResult(getTargetRequestCode(), RESULT_OK_CODE_IS_EXIST, getActivity().getIntent());
+                        if (getTargetFragment() != null) {
+                            getTargetFragment().onActivityResult(getTargetRequestCode(), RESULT_OK_CODE_IS_EXIST, Objects.requireNonNull(getActivity()).getIntent());
+                        }
                         dialog.dismiss();
                     } else {
                         if (Model.instance().getSharedScheduleManager().getMyScheduleCode() == code) {
@@ -78,7 +84,9 @@ public class AddScheduleDialog extends DialogFragment {
                             Model.instance().getSharedScheduleManager().fetchSharedEventsByCode(code, "Schedule " + code, new Listener<ResponseData, ResponseData>() {
                                 @Override
                                 public void onSucceeded(ResponseData result) {
-                                    getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, getActivity().getIntent().putExtra(EXTRA_SCHEDULE_CODE, code));
+                                    if (getTargetFragment() != null) {
+                                        getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, Objects.requireNonNull(getActivity()).getIntent().putExtra(EXTRA_SCHEDULE_CODE, code));
+                                    }
                                     dialog.dismiss();
                                 }
 

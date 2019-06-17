@@ -6,9 +6,10 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.text.style.ReplacementSpan;
 
+import org.jetbrains.annotations.NotNull;
+
 public class RoundedBackgroundSpan extends ReplacementSpan {
 
-    private static int CORNER_RADIUS = 30;
     private final int textColor;
     private final int backgroundColor;
 
@@ -19,12 +20,13 @@ public class RoundedBackgroundSpan extends ReplacementSpan {
     }
 
     @Override
-    public void draw(Canvas canvas, CharSequence text, int start, int end, float x, int top, int y, int bottom, Paint paint) {
+    public void draw(@NotNull Canvas canvas, CharSequence text, int start, int end, float x, int top, int y, int bottom, @NotNull Paint paint) {
         float fontBottom = paint.getFontMetrics().bottom;
         float fontTop = paint.getFontMetrics().top;
 
         RectF rect = new RectF(x, y + fontTop, x + measureText(paint, text, start, end),  y + fontBottom);
         paint.setColor(backgroundColor);
+        int CORNER_RADIUS = 30;
         canvas.drawRoundRect(rect, CORNER_RADIUS, CORNER_RADIUS, paint);
         paint.setColor(textColor);
         canvas.drawText(text, start, end, x, y, paint);
@@ -32,7 +34,7 @@ public class RoundedBackgroundSpan extends ReplacementSpan {
     }
 
     @Override
-    public int getSize(Paint paint, CharSequence text, int start, int end, Paint.FontMetricsInt fm) {
+    public int getSize(@NotNull Paint paint, CharSequence text, int start, int end, Paint.FontMetricsInt fm) {
         return Math.round(paint.measureText(text, start, end));
     }
 

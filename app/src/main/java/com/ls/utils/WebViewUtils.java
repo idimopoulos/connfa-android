@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import com.ls.drupalcon.R;
 
-public class WebviewUtils {
+public class WebViewUtils {
 
 	public static String getHtml(Activity activity, String body) {
 		String css = activity.getString(R.string.css);

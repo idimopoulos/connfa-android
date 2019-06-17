@@ -47,7 +47,7 @@ public class FloorSelectorAdapter extends BaseAdapter implements ThemedSpinnerAd
             convertView = inflater.inflate(R.layout.fr_floor_plan_spinner, parent, false);
         }
 
-        TextView label = (TextView)convertView.findViewById(R.id.spinnerTarget);
+        TextView label = convertView.findViewById(R.id.spinnerTarget);
         label.setText(mNames.get(position));
 
         return convertView;
@@ -78,7 +78,7 @@ public class FloorSelectorAdapter extends BaseAdapter implements ThemedSpinnerAd
             convertView = mInflater.inflate(R.layout.fr_floor_plan_spinner, parent, false);
         }
 
-        TextView label = (TextView)convertView.findViewById(R.id.spinnerTarget);
+        TextView label = convertView.findViewById(R.id.spinnerTarget);
         label.setText(mNames.get(position));
 
         return convertView;

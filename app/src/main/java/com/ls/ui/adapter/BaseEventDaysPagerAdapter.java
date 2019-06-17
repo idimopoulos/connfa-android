@@ -9,6 +9,8 @@ import com.ls.ui.drawer.EventHolderFragmentStrategy;
 import com.ls.ui.fragment.EventFragment;
 import com.ls.utils.DateUtils;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +39,7 @@ public class BaseEventDaysPagerAdapter extends FragmentStatePagerAdapter  {
     }
 
     @Override
-    public int getItemPosition(Object object) {
+    public int getItemPosition(@NotNull Object object) {
         return POSITION_NONE;
     }
 

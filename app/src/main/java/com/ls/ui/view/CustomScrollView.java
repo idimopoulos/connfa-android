@@ -1,5 +1,6 @@
 package com.ls.ui.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v4.widget.NestedScrollView;
 import android.util.AttributeSet;
@@ -38,6 +39,8 @@ public class CustomScrollView extends NestedScrollView {
             return false;
         }
     }
+
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         if (isEnableScrolling()) {

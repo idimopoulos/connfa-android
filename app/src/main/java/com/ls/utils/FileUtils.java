@@ -13,9 +13,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-/**
- * Created on 23.12.2014.
- */
 public class FileUtils
 {
     public static boolean writeBitmapToStorage(String name, Bitmap data, Context context){

@@ -23,6 +23,8 @@ import com.ls.drupalcon.model.managers.InfoManager;
 import com.ls.ui.activity.AboutDetailsActivity;
 import com.ls.utils.L;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +54,7 @@ public class AboutFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View result = inflater.inflate(R.layout.ac_about, container, false);
         initViews(result);
         return result;
@@ -67,7 +69,7 @@ public class AboutFragment extends Fragment {
     private void initViews(View root) {
 
         mLayoutPlaceholder = root.findViewById(R.id.layout_placeholder);
-        mListMenu = (ListView) root.findViewById(R.id.listView);
+        mListMenu = root.findViewById(R.id.listView);
         mListMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {

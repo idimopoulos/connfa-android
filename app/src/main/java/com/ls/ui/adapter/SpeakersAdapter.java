@@ -1,5 +1,6 @@
 package com.ls.ui.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
@@ -63,10 +64,10 @@ public class SpeakersAdapter extends BaseAdapter implements Filterable {
             row = mInflater.inflate(R.layout.item_speaker, parent, false);
 
             holder = new ViewHolder();
-            holder.imgPhoto = (CircleImageView) row.findViewById(R.id.imgPhoto);
-            holder.txtName = (TextView) row.findViewById(R.id.txtName);
-            holder.txtOrgAndJobTitle = (TextView) row.findViewById(R.id.txtOrgAndJobTitle);
-            holder.txtFirstLetter = (TextView) row.findViewById(R.id.txtFirstLetter);
+            holder.imgPhoto = row.findViewById(R.id.imgPhoto);
+            holder.txtName = row.findViewById(R.id.txtName);
+            holder.txtOrgAndJobTitle = row.findViewById(R.id.txtOrgAndJobTitle);
+            holder.txtFirstLetter = row.findViewById(R.id.txtFirstLetter);
             holder.divider = row.findViewById(R.id.divider);
 
             row.setTag(holder);
@@ -79,6 +80,7 @@ public class SpeakersAdapter extends BaseAdapter implements Filterable {
         return row;
     }
 
+    @SuppressLint("SetTextI18n")
     private void fillView(final ViewHolder holder, Speaker speaker, int position) {
         String imageUrl = speaker.getAvatarImageUrl();
         holder.imgPhoto.setImageWithURL(imageUrl);
@@ -134,7 +136,7 @@ public class SpeakersAdapter extends BaseAdapter implements Filterable {
 
             int count = speakersList.size();
 
-            final List<Speaker> nlist = new ArrayList<Speaker>(count);
+            final List<Speaker> nlist = new ArrayList<>(count);
 
             String filterableString;
 
@@ -167,7 +169,7 @@ public class SpeakersAdapter extends BaseAdapter implements Filterable {
     public OnFilterChangeListener mListener;
 
     public interface OnFilterChangeListener {
-        public void onFilterChange(int position);
+        void onFilterChange(int position);
     }
 
     public void setOnFilterChangeListener(OnFilterChangeListener listener) {

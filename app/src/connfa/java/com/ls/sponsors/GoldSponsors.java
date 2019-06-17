@@ -15,5 +15,4 @@ public class GoldSponsors {
         sponsors.add(new SponsorItem(context.getString(R.string.sponsor_2), R.drawable.event_details_sponsors_header_2));
         return sponsors;
     }
-
 }

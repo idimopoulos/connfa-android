@@ -1,5 +1,6 @@
 package com.ls.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -22,16 +23,15 @@ import com.ls.drupalcon.model.data.FloorPlan;
 import com.ls.ui.adapter.FloorSelectorAdapter;
 import com.ls.ui.view.TouchImageView;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created on 09.06.2016.
- */
 public class FloorPlanFragment  extends Fragment
 {
-    public static int REDCOMMENDED_FLOOR_IMAGE_HEIGHT = Resources.getSystem().getDisplayMetrics().heightPixels * 2;
-    public static int REDCOMMENDED_FLOOR_IMAGE_WIDTH = Resources.getSystem().getDisplayMetrics().widthPixels * 2;
+    public static int RECOMMENDED_FLOOR_IMAGE_HEIGHT = Resources.getSystem().getDisplayMetrics().heightPixels * 2;
+    public static int RECOMMENDED_FLOOR_IMAGE_WIDTH = Resources.getSystem().getDisplayMetrics().widthPixels * 2;
 
     public static final String TAG = "FloorPlanFragment";
     private View mLayoutContent, mLayoutPlaceholder;
@@ -64,12 +64,12 @@ public class FloorPlanFragment  extends Fragment
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View result = inflater.inflate(R.layout.fr_floor_plan, null);
         mLayoutContent = result.findViewById(R.id.layout_content);
         mLayoutPlaceholder = result.findViewById(R.id.layout_placeholder);
-        floorSelector = (Spinner)result.findViewById(R.id.spinner);
+        floorSelector = result.findViewById(R.id.spinner);
         floorSelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
             @Override
@@ -85,13 +85,14 @@ public class FloorPlanFragment  extends Fragment
             }
         });
 
-        floorImage = (TouchImageView)result.findViewById(R.id.floor_plan_image);
+        floorImage = result.findViewById(R.id.floor_plan_image);
 
         new LoadPlansTask().execute();
 
         return result;
     }
 
+    @SuppressLint("StaticFieldLeak")
     private class LoadPlansTask extends AsyncTask<Void,Void,List<FloorPlan>>{
 
         @Override
@@ -126,6 +127,7 @@ public class FloorPlanFragment  extends Fragment
         }
     }
 
+    @SuppressLint("StaticFieldLeak")
     private class LoadPlanImageTask extends AsyncTask<FloorPlan,Void,Drawable>{
 
         @Override
@@ -141,7 +143,7 @@ public class FloorPlanFragment  extends Fragment
         protected Drawable doInBackground(FloorPlan... params)
         {
             Bitmap planImage =  Model.instance().getFloorPlansManager().getImageForPlan(params[0],
-                    REDCOMMENDED_FLOOR_IMAGE_WIDTH,REDCOMMENDED_FLOOR_IMAGE_HEIGHT);
+                    RECOMMENDED_FLOOR_IMAGE_WIDTH, RECOMMENDED_FLOOR_IMAGE_HEIGHT);
             if(planImage != null){
                 return new BitmapDrawable(null,planImage);
             }

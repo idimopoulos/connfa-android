@@ -32,18 +32,17 @@ public class UpdatesManager {
         mClient = client;
     }
 
-    public void startLoading(@NotNull final UpdateCallback callback) {
+    public static void startLoading(final UpdateCallback callback, final UpdatesManager manager) {
         new AsyncTask<Void, Void, List<UpdateRequest>>() {
-
             @Override
             protected List<UpdateRequest> doInBackground(Void... params) {
-                return doPerformLoading();
+                return manager.doPerformLoading();
             }
 
             @Override
             protected void onPostExecute(final List<UpdateRequest> result) {
                 if (result != null) {
-                    mUpdateListeners.notifyAllObservers(new ObserverHolder.ObserverNotifier<DataUpdatedListener>() {
+                    manager.mUpdateListeners.notifyAllObservers(new ObserverHolder.ObserverNotifier<DataUpdatedListener>() {
                         @Override
                         public void onNotify(DataUpdatedListener observer) {
                             observer.onDataUpdated(result);
@@ -55,7 +54,7 @@ public class UpdatesManager {
                     if (callback != null) {
                         callback.onDownloadSuccess();
                     }
-                    mUpdateListeners.notifyAllObservers(new ObserverHolder.ObserverNotifier<DataUpdatedListener>() {
+                    manager.mUpdateListeners.notifyAllObservers(new ObserverHolder.ObserverNotifier<DataUpdatedListener>() {
                         @Override
                         public void onNotify(DataUpdatedListener observer) {
                             observer.onDataUpdated(result);

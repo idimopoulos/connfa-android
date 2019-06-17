@@ -16,6 +16,9 @@ import com.ls.drupalcon.R;
 import com.ls.drupalcon.model.PreferencesManager;
 import com.ls.utils.DateUtils;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 import java.util.TimeZone;
 
 public class IrrelevantTimezoneDialogFragment extends DialogFragment {
@@ -25,13 +28,14 @@ public class IrrelevantTimezoneDialogFragment extends DialogFragment {
 
     public static final String TAG = IrrelevantTimezoneDialogFragment.class.getName();
 
+    @NotNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         TimeZone eventTimeZone = PreferencesManager.getInstance().getServerTimeZoneObject();
-        String timezoneNotificationData = String.format(getActivity().getString(R.string.irrelevant_timezone_notificaiton), eventTimeZone.getDisplayName(), eventTimeZone.getID());
+        String timezoneNotificationData = String.format(Objects.requireNonNull(getActivity()).getString(R.string.irrelevant_timezone_notificaiton), eventTimeZone.getDisplayName(), eventTimeZone.getID());
 
         ViewGroup contentView = (ViewGroup) LayoutInflater.from(getActivity()).inflate(R.layout.dialog_timezone_warning,null);
-        TextView messageView = (TextView)contentView.findViewById(R.id.messageView);
+        TextView messageView = contentView.findViewById(R.id.messageView);
         messageView.setText(timezoneNotificationData);
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
@@ -42,7 +46,7 @@ public class IrrelevantTimezoneDialogFragment extends DialogFragment {
             @Override
             public void onClick(DialogInterface dialog, int which)
             {
-                CheckBox dontShowBox = (CheckBox) ((Dialog) dialog).findViewById(R.id.chk_dont_ask_again);
+                CheckBox dontShowBox = ((Dialog) dialog).findViewById(R.id.chk_dont_ask_again);
 
                 if (dontShowBox.isChecked()) {
                     setCanPresentMessage(dontShowBox.getContext(), false);

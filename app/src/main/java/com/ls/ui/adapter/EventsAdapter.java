@@ -338,13 +338,16 @@ public class EventsAdapter extends BaseAdapter {
             String span = eventName + "  " + marker;
 
             SpannableStringBuilder stringBuilder = new SpannableStringBuilder(span);
-            stringBuilder.setSpan(
-                    new RoundedBackgroundSpan(mContext.getResources().getColor(R.color.white), mContext.getResources().getColor(R.color.primary_dark)),
-                    span.length() - marker.length(),
-                    span.length(),
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-            );
-            stringBuilder.setSpan(new RelativeSizeSpan(0.8f), span.length() - marker.length(), span.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            if (marker != null) {
+                stringBuilder.setSpan(
+                        new RoundedBackgroundSpan(mContext.getResources().getColor(R.color.white), mContext.getResources().getColor(R.color.primary_dark)),
+                        span.length() - marker.length(),
+                        span.length(),
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                );
+
+                stringBuilder.setSpan(new RelativeSizeSpan(0.8f), span.length() - marker.length(), span.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
 
             holder.txtTitle.setText(stringBuilder);
         } else {
@@ -355,21 +358,21 @@ public class EventsAdapter extends BaseAdapter {
 
     private EventHolder createEventHolder(View resultView) {
         EventHolder holder = new EventHolder();
-        holder.layoutRoot = (LinearLayout) resultView.findViewById(R.id.layoutRoot);
-        holder.layoutTime = (LinearLayout) resultView.findViewById(R.id.timeLayout);
+        holder.layoutRoot = resultView.findViewById(R.id.layoutRoot);
+        holder.layoutTime = resultView.findViewById(R.id.timeLayout);
         holder.divider = resultView.findViewById(R.id.divider);
         holder.marginDivider = resultView.findViewById(R.id.margin_divider);
-        holder.icon = (ImageView) resultView.findViewById(R.id.imgEventIcon);
-        holder.expIcon = (ImageView) resultView.findViewById(R.id.imgExperience);
-        holder.txtTitle = (TextView) resultView.findViewById(R.id.txtTitle);
-        holder.txtFrom = (TextView) resultView.findViewById(R.id.txtFrom);
-        holder.txtTo = (TextView) resultView.findViewById(R.id.txtTo);
-        holder.layoutSpeakers = (LinearLayout) resultView.findViewById(R.id.layout_speakers);
-        holder.layoutPlace = (LinearLayout) resultView.findViewById(R.id.layout_place);
-        holder.txtSpeakers = (TextView) resultView.findViewById(R.id.txtSpeakers);
-        holder.txtTrack = (TextView) resultView.findViewById(R.id.txtTrack);
-        holder.txtPlace = (TextView) resultView.findViewById(R.id.txtPlace);
-        holder.iconFriends = (ImageView) resultView.findViewById(R.id.iconFriends);
+        holder.icon = resultView.findViewById(R.id.imgEventIcon);
+        holder.expIcon = resultView.findViewById(R.id.imgExperience);
+        holder.txtTitle = resultView.findViewById(R.id.txtTitle);
+        holder.txtFrom = resultView.findViewById(R.id.txtFrom);
+        holder.txtTo = resultView.findViewById(R.id.txtTo);
+        holder.layoutSpeakers = resultView.findViewById(R.id.layout_speakers);
+        holder.layoutPlace = resultView.findViewById(R.id.layout_place);
+        holder.txtSpeakers = resultView.findViewById(R.id.txtSpeakers);
+        holder.txtTrack = resultView.findViewById(R.id.txtTrack);
+        holder.txtPlace = resultView.findViewById(R.id.txtPlace);
+        holder.iconFriends = resultView.findViewById(R.id.iconFriends);
         return holder;
     }
 

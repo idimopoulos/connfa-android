@@ -9,7 +9,6 @@ import com.ls.drupalcon.app.App;
 
 public class AnalyticsManager {
 
-
     public static void drawerFragmentTracker(Activity activity, int screenNameId) {
         Tracker t = ((App) activity.getApplication()).getTracker();
         // Build and send an Event.

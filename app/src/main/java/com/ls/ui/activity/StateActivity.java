@@ -1,11 +1,13 @@
 package com.ls.ui.activity;
 
+import android.annotation.SuppressLint;
 import android.content.ComponentCallbacks2;
 import android.support.v7.app.AppCompatActivity;
 
 import com.ls.drupalcon.model.Model;
 import com.ls.drupalcon.model.UpdatesManager;
 
+@SuppressLint("Registered")
 public class StateActivity extends AppCompatActivity {
 
     private static boolean wasInBackground = false;
@@ -27,7 +29,6 @@ public class StateActivity extends AppCompatActivity {
     }
 
     private void checkForUpdates() {
-        UpdatesManager manager = Model.instance().getUpdatesManager();
-        manager.startLoading(null);
+        UpdatesManager.startLoading(null, Model.instance().getUpdatesManager());
     }
 }

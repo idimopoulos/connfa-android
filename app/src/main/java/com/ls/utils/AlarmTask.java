@@ -14,6 +14,7 @@ public class AlarmTask implements Runnable {
     public static final String EXTRA_ID = "EXTRA_ID";
     public static final String EXTRA_DAY = "EXTRA_DAY";
     public static final String EXTRA_TEXT = "EXTRA_TEXT";
+    
     private static final int FIVE_MINUTES = 5 * 60 * 1000;
 
     private final AlarmManager am;
@@ -22,7 +23,7 @@ public class AlarmTask implements Runnable {
     private final long startMillis;
     private final long day;
 
-    public AlarmTask(Context context, AlarmManager am, EventDetailsEvent event, long startMillis, long day) {
+    AlarmTask(Context context, AlarmManager am, EventDetailsEvent event, long startMillis, long day) {
         this.context = context;
         this.am = am;
         this.event = event;

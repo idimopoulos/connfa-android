@@ -13,6 +13,8 @@ import android.widget.EditText;
 
 import com.ls.drupalcon.R;
 
+import java.util.Objects;
+
 public class EditScheduleDialog extends DialogFragment {
 
     public static final String TAG = EditScheduleDialog.class.getName();
@@ -38,16 +40,18 @@ public class EditScheduleDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         ViewGroup contentView = (ViewGroup) LayoutInflater.from(getActivity()).inflate(R.layout.dialog_shedule_name, null);
-        final EditText editTextId = (EditText) contentView.findViewById(R.id.scheduleName);
+        final EditText editTextId = contentView.findViewById(R.id.scheduleName);
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
         alertDialogBuilder.setTitle("Schedule name");
         alertDialogBuilder.setView(contentView);
-        alertDialogBuilder.setPositiveButton(getActivity().getString(android.R.string.ok), new DialogInterface.OnClickListener() {
+        alertDialogBuilder.setPositiveButton(Objects.requireNonNull(getActivity()).getString(android.R.string.ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String text = editTextId.getText().toString();
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, getActivity().getIntent().putExtra(EXTRA_SCHEDULE_NAME, text));
+                if (getTargetFragment() != null) {
+                    getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, Objects.requireNonNull(getActivity()).getIntent().putExtra(EXTRA_SCHEDULE_NAME, text));
+                }
 
             }
         });
@@ -55,7 +59,9 @@ public class EditScheduleDialog extends DialogFragment {
         alertDialogBuilder.setNegativeButton(getActivity().getString(android.R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_CANCELED, getActivity().getIntent());
+                if (getTargetFragment() != null) {
+                    getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_CANCELED, Objects.requireNonNull(getActivity()).getIntent());
+                }
             }
         });
         AlertDialog dialog = alertDialogBuilder.create();

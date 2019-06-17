@@ -15,6 +15,7 @@ import com.ls.drupalcon.model.data.Track;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class FilterDialogAdapter extends BaseExpandableListAdapter {
 
@@ -64,13 +65,13 @@ public class FilterDialogAdapter extends BaseExpandableListAdapter {
 	@Override
 	public int getChildrenCount(int groupPosition) {
 		String header = listDataHeader.get(groupPosition);
-		return listChildData.get(header).length;
+		return Objects.requireNonNull(listChildData.get(header)).length;
 	}
 
 	@Override
 	public Object getChild(int groupPosition, int childPosititon) {
 		String header = listDataHeader.get(groupPosition);
-		return listChildData.get(header)[childPosititon];
+		return Objects.requireNonNull(listChildData.get(header))[childPosititon];
 	}
 
 	@Override
@@ -96,7 +97,7 @@ public class FilterDialogAdapter extends BaseExpandableListAdapter {
 
 		final View divider = convertView.findViewById(R.id.divider);
 
-		TextView txtHeader = (TextView) convertView.findViewById(R.id.txtTitle);
+		TextView txtHeader = convertView.findViewById(R.id.txtTitle);
 		txtHeader.setText(getGroup(groupPosition));
 		txtHeader.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -142,10 +143,10 @@ public class FilterDialogAdapter extends BaseExpandableListAdapter {
 			divider.setVisibility(View.INVISIBLE);
 		}
 
-		TextView txtChild = (TextView) convertView.findViewById(R.id.txtItemTitle);
+		TextView txtChild = convertView.findViewById(R.id.txtItemTitle);
 		txtChild.setText(childText);
 
-		CheckBox checkBox = (CheckBox) convertView.findViewById(R.id.checkBox);
+		CheckBox checkBox = convertView.findViewById(R.id.checkBox);
 		if (isSelected(childId, groupPosition)) {
 			checkBox.setChecked(true);
 		} else {
@@ -205,14 +206,10 @@ public class FilterDialogAdapter extends BaseExpandableListAdapter {
 		if (!mSelectedIds.isEmpty()) {
 			if (groupPosition == 0) {
 				List<Long> ids = mSelectedIds.get(0);
-				if (ids.contains(id)) {
-					return true;
-				}
+				return ids.contains(id);
 			} else if (groupPosition == 1) {
 				List<Long> ids = mSelectedIds.get(1);
-				if (ids.contains(id)) {
-					return true;
-				}
+				return ids.contains(id);
 			}
 		}
 		return false;

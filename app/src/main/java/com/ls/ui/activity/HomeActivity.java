@@ -35,9 +35,12 @@ import com.ls.utils.KeyboardUtils;
 import com.ls.utils.L;
 import com.ls.utils.ScheduleManager;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 public class HomeActivity extends StateActivity implements FilterDialog.OnFilterApplied {
     private static final String NAVIGATE_TO_SCHEDULE_EXTRA_KEY = "navigate_to_schedule_extra_key";
@@ -50,12 +53,15 @@ public class HomeActivity extends StateActivity implements FilterDialog.OnFilter
     private DrawerLayout mDrawerLayout;
 
     public FilterDialog mFilterDialog;
+
     public boolean mIsDrawerItemClicked;
+
+    public HomeActivity self = this;
 
     private UpdatesManager.DataUpdatedListener updateReceiver = new UpdatesManager.DataUpdatedListener() {
         @Override
         public void onDataUpdated(List<UpdateRequest> requests) {
-            initFilterDialog();
+            initFilterDialog(self);
         }
     };
 
@@ -81,7 +87,7 @@ public class HomeActivity extends StateActivity implements FilterDialog.OnFilter
         initToolbar();
 
         initNavigationDrawerList();
-        initFilterDialog();
+        initFilterDialog(this);
 
         initFragmentManager(code);
         if (getIntent().getExtras() != null) {
@@ -111,28 +117,28 @@ public class HomeActivity extends StateActivity implements FilterDialog.OnFilter
     }
 
     private void initToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolBar);
+        Toolbar toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
         initNavigationDrawer(toolbar);
     }
 
     private void initNavigationDrawer(Toolbar toolbar) {
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        mDrawerLayout = findViewById(R.id.drawerLayout);
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name);
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         mDrawerLayout.closeDrawers();
         mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {
-                KeyboardUtils.hideKeyboard(getCurrentFocus());
+            public void onDrawerSlide(@NotNull View drawerView, float slideOffset) {
+                KeyboardUtils.hideKeyboard(Objects.requireNonNull(getCurrentFocus()));
             }
 
             @Override
-            public void onDrawerOpened(View drawerView) {
+            public void onDrawerOpened(@NotNull View drawerView) {
             }
 
             @Override
-            public void onDrawerClosed(View drawerView) {
+            public void onDrawerClosed(@NotNull View drawerView) {
                 if (mIsDrawerItemClicked) {
                     mIsDrawerItemClicked = false;
                     changeFragment();
@@ -151,7 +157,7 @@ public class HomeActivity extends StateActivity implements FilterDialog.OnFilter
         List<DrawerMenuItem> menu = DrawerMenu.getNavigationDrawerItems();
         mAdapter = new DrawerAdapter(this, menu);
 
-        final ListView listView = (ListView) findViewById(R.id.leftDrawer);
+        final ListView listView = findViewById(R.id.leftDrawer);
         if (listView != null) {
             listView.addHeaderView(
                     getLayoutInflater().inflate(R.layout.nav_drawer_header, listView, false),
@@ -163,16 +169,19 @@ public class HomeActivity extends StateActivity implements FilterDialog.OnFilter
                     false);
         }
 
-        listView.setAdapter(mAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                onDrawerItemClick(position - listView.getHeaderViewsCount());
-            }
-        });
+        if (listView != null) {
+            listView.setAdapter(mAdapter);
+
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                    onDrawerItemClick(position - listView.getHeaderViewsCount());
+                }
+            });
+        }
     }
 
-    public void initFilterDialog() {
+    public static void initFilterDialog(final HomeActivity activity) {
         new AsyncTask<Void, Void, List<EventListItem>>() {
             @Override
             protected List<EventListItem> doInBackground(Void... params) {
@@ -199,14 +208,15 @@ public class HomeActivity extends StateActivity implements FilterDialog.OnFilter
                 for (int i = 0; i < levelList.size(); i++) {
                     levels[i] = levelList.get(i).getName();
                 }
-                mFilterDialog = FilterDialog.newInstance(tracks, levels);
-                mFilterDialog.setData(levelList, trackList);
+
+                activity.mFilterDialog = FilterDialog.newInstance(tracks, levels);
+                activity.mFilterDialog.setData(levelList, trackList);
+
                 return null;
             }
 
             @Override
-            protected void onPostExecute(List<EventListItem> eventListItems) {
-            }
+            protected void onPostExecute(List<EventListItem> eventListItems) {}
         }.execute();
     }
 

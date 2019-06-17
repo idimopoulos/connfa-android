@@ -3,7 +3,7 @@ package com.ls.utils;
 import android.util.Log;
 
 public class L {
-    public static String LOG_TAG = "Undefined";
+    private static String LOG_TAG = "Undefined";
 
     /**
      * <p><b>ERROR:</b> This level of logging should be used when something fatal has happened, i.e. something that
