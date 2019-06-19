@@ -222,7 +222,7 @@
             android:layout_height="56dp"
             android:background="@color/speaker" />
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -239,7 +239,7 @@
                 android:textSize="@dimen/text_size_20"
                 android:textStyle="bold"
                 tools:text="DrupalCon" />
-        </android.support.v7.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
     </RelativeLayout>
 
     <ProgressBar

@@ -26,7 +26,7 @@ import com.ls.http.base.BaseStringResponseHandler;
 import com.ls.http.base.IResponseItem;
 import com.ls.util.internal.ObjectsFactory;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import java.lang.reflect.Type;
 

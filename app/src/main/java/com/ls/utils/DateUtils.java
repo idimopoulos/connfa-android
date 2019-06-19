@@ -1,7 +1,7 @@
 package com.ls.utils;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.text.format.DateFormat;
 
 import com.ls.drupalcon.model.PreferencesManager;

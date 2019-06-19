@@ -26,7 +26,7 @@ package com.ls.drupal;
 import com.ls.http.base.BaseRequest;
 import com.ls.http.base.ResponseData;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 public abstract class AbstractMultipartDrupalEntity extends AbstractBaseDrupalEntity
 {

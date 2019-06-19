@@ -23,7 +23,7 @@
 
 package com.ls.drupal;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 public abstract class AbstractDrupalEntity extends AbstractBaseDrupalEntity
 {

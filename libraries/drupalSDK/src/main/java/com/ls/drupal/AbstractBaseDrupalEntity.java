@@ -37,7 +37,7 @@ import com.ls.util.internal.VolleyResponseUtils;
 
 import junit.framework.Assert;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;

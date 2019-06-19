@@ -11,7 +11,7 @@
         android:background="@color/black_90_trans"
        />
 
-    <android.support.v4.widget.DrawerLayout
+    <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -26,7 +26,7 @@
                 android:layout_height="match_parent"
                 android:layout_below="@+id/toolBar"/>
 
-            <android.support.v7.widget.Toolbar
+            <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -58,6 +58,6 @@
             android:dividerHeight="0dp"
             android:splitMotionEvents="false"/>
 
-    </android.support.v4.widget.DrawerLayout>
+    </androidx.drawerlayout.widget.DrawerLayout>
 
 </FrameLayout>

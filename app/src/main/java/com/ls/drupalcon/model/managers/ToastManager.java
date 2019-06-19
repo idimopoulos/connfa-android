@@ -3,7 +3,7 @@ package com.ls.drupalcon.model.managers;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.View;
 import android.widget.Toast;
 

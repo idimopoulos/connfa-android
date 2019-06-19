@@ -76,7 +76,7 @@
         android:layout_height="56dp"
         android:background="@drawable/shape_shadow"/>
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
