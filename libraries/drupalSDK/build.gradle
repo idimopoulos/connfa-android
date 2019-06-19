@@ -44,7 +44,7 @@ dependencies {
     api 'com.android.support:support-v4:28.0.0'
     api 'com.google.code.gson:gson:2.8.5'
     api 'org.jetbrains:annotations:17.0.0'
-    api 'com.android.support:support-annotations:28.0.0'
+    api 'androidx.annotation:annotation:1.1.0'
     api 'com.mcxiaoke.volley:library:1.0.19'
     api 'com.google.code.gson:gson:2.8.5'
     api 'junit:junit:4.13-beta-3'
