@@ -130,7 +130,7 @@ public class HomeActivity extends StateActivity implements FilterDialog.OnFilter
         mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(@NotNull View drawerView, float slideOffset) {
-                KeyboardUtils.hideKeyboard(Objects.requireNonNull(getCurrentFocus()));
+                KeyboardUtils.hideKeyboard(getCurrentFocus());
             }
 
             @Override

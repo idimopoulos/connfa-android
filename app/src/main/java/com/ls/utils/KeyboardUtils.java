@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
+import androidx.annotation.Nullable;
+
 import java.util.Objects;
 
 public class KeyboardUtils {
@@ -21,13 +23,15 @@ public class KeyboardUtils {
         }
     }
 
-    public static void hideKeyboard(View theView) {
-        Context context = theView.getContext();
-        Object service = context.getSystemService(Context.INPUT_METHOD_SERVICE);
+    public static void hideKeyboard(@Nullable View theView) {
+        if (theView != null) {
+            Context context = theView.getContext();
+            Object service = context.getSystemService(Context.INPUT_METHOD_SERVICE);
 
-        InputMethodManager imm = (InputMethodManager) service;
-        if (imm != null) {
-            imm.hideSoftInputFromWindow(theView.getWindowToken(), 0);
+            InputMethodManager imm = (InputMethodManager) service;
+            if (imm != null) {
+                imm.hideSoftInputFromWindow(theView.getWindowToken(), 0);
+            }
         }
     }
 

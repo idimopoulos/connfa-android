@@ -22,7 +22,7 @@
             android:layout_marginBottom="4dp"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_24"
-            app:custom_font="@string/custom_regular_font" />
+            app:custom_font="@string/regular_font" />
 
         <com.ls.ui.view.FontTextView
             android:id="@+id/txtAddress"
