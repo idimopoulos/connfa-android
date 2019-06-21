@@ -1,2 +1,3 @@
 /build
 /src/*/res/values/secrets.xml
+/src/*/google-services.json
