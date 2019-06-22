@@ -90,4 +90,5 @@ dependencies {
     api 'com.google.code.gson:gson:2.8.5'
     api 'org.jetbrains:annotations:17.0.0'
     api 'com.jpardogo.materialtabstrip:library:1.1.1'
+    api 'androidx.multidex:multidex:2.0.1'
 }

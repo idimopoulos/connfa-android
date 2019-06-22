@@ -524,22 +524,28 @@ public class EventHolderFragment extends Fragment {
     }
 
     void showAddScheduleDialog() {
-        DialogFragment newFragment = AddScheduleDialog.newInstance();
-        newFragment.setTargetFragment(this, ADD_SCHEDULE_DIALOG_REQUEST_CODE);
-        newFragment.show(getChildFragmentManager(), AddScheduleDialog.TAG);
+        if (getFragmentManager() != null) {
+            DialogFragment newFragment = AddScheduleDialog.newInstance();
+            newFragment.setTargetFragment(this, ADD_SCHEDULE_DIALOG_REQUEST_CODE);
+            newFragment.show(getFragmentManager(), AddScheduleDialog.TAG);
+        }
     }
 
     void showChangeScheduleNameDialog(long code, String name) {
-        DialogFragment newFragment = CreateScheduleDialog.newEditDialogInstance(code, name);
-        newFragment.setTargetFragment(this, CHANGE_SCHEDULE_NAME_DIALOG_REQUEST_CODE);
-        newFragment.show(getChildFragmentManager(), EditScheduleDialog.TAG);
+        if (getFragmentManager() != null) {
+            DialogFragment newFragment = CreateScheduleDialog.newEditDialogInstance(code, name);
+            newFragment.setTargetFragment(this, CHANGE_SCHEDULE_NAME_DIALOG_REQUEST_CODE);
+            newFragment.show(getChildFragmentManager(), EditScheduleDialog.TAG);
+        }
     }
 
     void showSetNameDialog(long code) {
-        mProgressBar.setVisibility(View.VISIBLE);
-        DialogFragment newFragment = CreateScheduleDialog.newCreateDialogInstance(code);
-        newFragment.setTargetFragment(this, SET_SCHEDULE_NAME_DIALOG_REQUEST_CODE);
-        newFragment.show(getChildFragmentManager(), CreateScheduleDialog.TAG);
+        if (getFragmentManager() != null) {
+            mProgressBar.setVisibility(View.VISIBLE);
+            DialogFragment newFragment = CreateScheduleDialog.newCreateDialogInstance(code);
+            newFragment.setTargetFragment(this, SET_SCHEDULE_NAME_DIALOG_REQUEST_CODE);
+            newFragment.show(getChildFragmentManager(), CreateScheduleDialog.TAG);
+        }
     }
 
     @Override
