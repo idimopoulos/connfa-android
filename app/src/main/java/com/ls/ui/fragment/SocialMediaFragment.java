@@ -1,22 +1,23 @@
 package com.ls.ui.fragment;
 
-import android.database.DataSetObserver;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
 
 import com.ls.drupalcon.R;
 import com.ls.drupalcon.model.Model;
-import com.ls.drupalcon.model.PreferencesManager;
 import com.ls.drupalcon.model.UpdateRequest;
 import com.ls.drupalcon.model.UpdatesManager;
+import com.ls.ui.activity.SpeakerDetailsActivity;
 import com.ls.utils.NetworkUtils;
-import com.twitter.sdk.android.tweetui.SearchTimeline;
-import com.twitter.sdk.android.tweetui.TweetTimelineListAdapter;
+import com.ls.utils.WebViewUtils;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -66,39 +67,41 @@ public class SocialMediaFragment extends Fragment {
         fillView();
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     private void fillView() {
 
         if (!NetworkUtils.isOn(Objects.requireNonNull(getActivity()))) {
-            rootView.findViewById(R.id.list_view).setVisibility(View.GONE);
+            rootView.findViewById(R.id.web_view).setVisibility(View.GONE);
             rootView.findViewById(R.id.progressBar).setVisibility(View.GONE);
             mLayoutPlaceholder.setVisibility(View.GONE);
             TextView emptyView = rootView.findViewById(R.id.EmptyView);
             emptyView.setText(R.string.NoConnectionMessage);
         }
 
-        String searchQuery = PreferencesManager.getInstance().getTwitterSearchQuery();
+        WebView webView = rootView.findViewById(R.id.web_view);
 
-        final SearchTimeline userTimeline = new SearchTimeline.Builder()
-                .query(searchQuery)
-                .build();
-        final TweetTimelineListAdapter adapter = new TweetTimelineListAdapter.Builder(rootView.getContext())
-                .setTimeline(userTimeline)
-                .build();
+        webView.setVisibility(View.GONE);
 
-        adapter.registerDataSetObserver(new DataSetObserver() {
+        webView.setWebViewClient(new WebViewClient() {
             @Override
-            public void onChanged() {
-                super.onChanged();
-                rootView.findViewById(R.id.progressBar).setVisibility(View.GONE);
+            public void onPageFinished(WebView view, String url) {
+                completeLoading();
             }
         });
 
-        ListView list = rootView.findViewById(R.id.list_view);
+        webView.getSettings().setAppCacheEnabled(true);
+        webView.getSettings().setJavaScriptEnabled(true);
 
-        list.setEmptyView(mLayoutPlaceholder);
-        list.setAdapter(adapter);
+        String data = "<a class=\"twitter-timeline\" data-theme=\"light\" href=\"https://twitter.com/gnome?ref_src=twsrc^tfw\">Tweets by gnome</a> <script async src=\"https://platform.twitter.com/widgets.js\" charset=\"utf-8\"></script>";
+
+        webView.loadDataWithBaseURL("https://twitter.com", data,
+                "text/html", "UTF-8", null);
     }
 
+    private void completeLoading() {
+        rootView.findViewById(R.id.progressBar).setVisibility(View.GONE);
+        rootView.findViewById(R.id.web_view).setVisibility(View.VISIBLE);
+    }
 
     @Override
     public void onDestroyView() {

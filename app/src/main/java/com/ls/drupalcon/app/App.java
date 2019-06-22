@@ -13,10 +13,6 @@ import com.ls.drupalcon.model.Model;
 import com.ls.drupalcon.model.database.LAPIDBRegister;
 import com.ls.http.base.BaseRequest;
 import com.ls.util.image.DrupalImageView;
-import com.twitter.sdk.android.Twitter;
-import com.twitter.sdk.android.core.TwitterAuthConfig;
-
-import io.fabric.sdk.android.Fabric;
 
 public class App extends MultiDexApplication {
 
@@ -25,16 +21,12 @@ public class App extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-            TwitterAuthConfig authConfig = new TwitterAuthConfig(
-                    getString(R.string.api_value_twitter_api_key),
-                    getString(R.string.api_value_twitter_secret));
 
         mContext = getApplicationContext();
 
         LAPIDBRegister.getInstance().register(mContext, new AppDatabaseInfo(mContext));
         Model.instance(mContext);
         DrupalImageView.setupSharedClient(new DrupalClient(null, Model.instance().createNewQueue(getApplicationContext()), BaseRequest.RequestFormat.JSON, null));
-        Fabric.with(this, new Crashlytics(), new Twitter(authConfig));
     }
 
     public static Context getContext() {

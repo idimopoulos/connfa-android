@@ -13,7 +13,6 @@ public class PreferencesManager {
     private static final String PREF_NAME = "com.ls.drupalconapp.model.MAIN_PREFERENCES";
 
     private static final String TIME_ZONE = "TIME_ZONE";
-    private static final String TWITTER_SEARCH_QUERY = "TWITTER_SEARCH_QUERY";
     private static final String KEY_LAST_UPDATE_DATE = "KEY_LAST_UPDATE_DATE";
     private static final String KEY_INFO_MAJOR_TITLE = "KEY_INFO_MAJOR_TITLE";
     private static final String KEY_INFO_MINOR_TITLE = "KEY_INFO_MINOR_TITLE";
@@ -56,14 +55,6 @@ public class PreferencesManager {
 
     public String getTimeZone() {
         return mPref.getString(TIME_ZONE, "");
-    }
-
-    public void saveTwitterSearchQuery(String searchQuery) {
-        mPref.edit().putString(TWITTER_SEARCH_QUERY, searchQuery).commit();
-    }
-
-    public String getTwitterSearchQuery() {
-        return mPref.getString(TWITTER_SEARCH_QUERY, "");
     }
 
     public TimeZone getServerTimeZoneObject() {

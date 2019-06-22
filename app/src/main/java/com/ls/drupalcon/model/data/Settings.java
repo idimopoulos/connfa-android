@@ -10,14 +10,8 @@ public class Settings {
     @SerializedName("titleMinor")
     private String titleMinor;
 
-    @SerializedName("twitterWidget")
-    private String twitterWidget;
-
     @SerializedName("timezone")
     private String timeZone;
-
-    @SerializedName("twitterSearchQuery")
-    private String twitterSearchQuery;
 
     public String getTitleMajor() {
         return titleMajor;
@@ -35,29 +29,11 @@ public class Settings {
         this.titleMinor = titleMinor;
     }
 
-    public String getTwitterWidget() {
-        return twitterWidget;
-    }
-
-    public void setTwitterWidget(String twitterWidget) {
-        this.twitterWidget = twitterWidget;
-    }
-
     public String getTimeZone() {
         return timeZone;
     }
 
     public void setTimeZone(String timeZone) {
         this.timeZone = timeZone;
-    }
-
-    public String getTwitterSearchQuery()
-    {
-        return twitterSearchQuery;
-    }
-
-    public void setTwitterSearchQuery(String twitterSearchQuery)
-    {
-        this.twitterSearchQuery = twitterSearchQuery;
     }
 }
