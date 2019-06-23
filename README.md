@@ -24,6 +24,17 @@ To do this, install the plugin and right click on the drawable folder.
 Select `New > Batch Drawable Import` and follow the wizard to push multiple versions of an image at
 once.
 
+### Base url
+To start receiving data from the correct source, edit the `api_values.xml` file under the
+`/app/src/<flavor>/res/values` directory and chagne the `api_value_base_url` to the API url of the
+integration server.
+Example `api_values.xml` file:
+```yaml
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="api_value_base_url">https://data.gnest.org/api/v2/CEST2019/</string>
+</resources>
+
 ### Google-services
 In order to use the google services, a new google-services json file needs to be created.
 
@@ -62,3 +73,4 @@ keyPassword=<the key password>
 storePassword=<the store password>
 ```
 These values are then consumed in the `signingConfigs` of the `/app/build.gradle` file.
+```
