@@ -85,7 +85,7 @@ below:
 <resources>
     .
     .
-    <string name="twitter_account_name">MY_AWESOME_ACCOUNT</string>
+    <string name="twitter_embed_url">https://twitter.com/MY_AWESOME_TWITTER?ref_src=twsrc^tfw</string>
     <string name="twitter_name_heading">Tweets by me :)</string>
     .
     .

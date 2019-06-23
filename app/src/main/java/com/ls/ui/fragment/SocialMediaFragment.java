@@ -98,8 +98,11 @@ public class SocialMediaFragment extends Fragment {
         webView.getSettings().setJavaScriptEnabled(true);
 
 
-        String data = "<a class=\"twitter-timeline\" data-theme=\"light\" href=\"https://twitter.com/" + this.getContext().getString(R.string.twitter_account_name) + "?ref_src=twsrc^tfw\">" + this.getContext().getString(R.string.twitter_name_heading) + "</a> <script async src=\"https://platform.twitter.com/widgets.js\" charset=\"utf-8\"></script>";
-        System.out.println(data); webView.loadDataWithBaseURL("https://twitter.com", data,
+        String data = "<a class=\"twitter-timeline\" data-theme=\"light\" href=\""
+                + this.getContext().getString(R.string.twitter_embed_url)
+                + "\">" + this.getContext().getString(R.string.twitter_name_heading)
+                + "</a> <script async src=\"https://platform.twitter.com/widgets.js\" charset=\"utf-8\"></script>";
+        webView.loadDataWithBaseURL("https://twitter.com", data,
                 "text/html", "UTF-8", null);
     }
 
