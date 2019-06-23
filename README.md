@@ -51,8 +51,6 @@ format:
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="api_value_google_maps_api_key">12345abc</string>
-    <string name="api_value_twitter_api_key">12345abc</string>
-    <string name="api_value_twitter_secret">12345abc</string>
 </resources>
 ```
 Please, keep in mind that the name of the strings are the onces to be used as they are hardcoded.
@@ -73,4 +71,23 @@ keyPassword=<the key password>
 storePassword=<the store password>
 ```
 These values are then consumed in the `signingConfigs` of the `/app/build.gradle` file.
+```
+
+### Twitter
+To stream the timeline from the twitter account of your preference, you need to override two string
+values in the `strings.xml` of the flavor.
+
+The sample values are the account name (without the `@` tag) and the heading of the page as shown
+below:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    .
+    .
+    <string name="twitter_account_name">MY_AWESOME_ACCOUNT</string>
+    <string name="twitter_name_heading">Tweets by me :)</string>
+    .
+    .
+</resources>
 ```
