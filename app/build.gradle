@@ -44,10 +44,12 @@ android {
     }
     signingConfigs {
         config {
-            keyAlias 'drupalcon'
-            keyPassword 'lembergsolutions'
-            storeFile file('keystore/keystore.keystore')
-            storePassword 'lembergsolutions'
+            Properties properties = new Properties()
+            properties.load(project.rootProject.file('local.properties').newDataInputStream())
+            storeFile file(properties.getProperty('storeFile'))
+            keyAlias properties.getProperty('keyAlias')
+            storePassword properties.getProperty('storePassword')
+            keyPassword properties.getProperty('keyPassword')
         }
     }
     buildTypes {
